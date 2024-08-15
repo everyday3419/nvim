@@ -63,6 +63,38 @@ lspconfig.lua_ls.setup {
   },
 }
 
+lspconfig.rust_analyzer.setup {
+  capabilities = capabilities,
+  filetypes = { "rust" },
+  root_dir = lspconfig.util.root_pattern "Cargo.toml",
+  settings = {
+    ["rust-analyzer"] = {
+      check = {
+        allFeatures = true,
+      },
+    },
+  },
+}
+
+lspconfig.tsserver.setup {
+  capabilities = capabilities,
+}
+
+lspconfig.gopls.setup {
+  capabilities = capabilities,
+  flags = {
+    debounce_text_changes = 150,
+  },
+  settings = {
+    gopls = {
+      analyses = {
+        unusedparams = true,
+      },
+      staticcheck = true,
+    },
+  },
+}
+
 -- setup multiple servers with same default options
 local servers = { "tsserver", "html", "cssls" }
 

@@ -205,6 +205,20 @@ local plugins = {
     opts = {}, -- for default options, refer to the configuration section for custom setup.
     cmd = "Trouble",
   },
+
+  {
+    "saecki/crates.nvim",
+    event = { "BufRead Cargo.toml" },
+    config = function()
+      require("crates").setup()
+    end,
+  },
+
+  {
+    "stevearc/dressing.nvim",
+    lazy = false,
+    opts = {},
+  },
 }
 
 require("lazy").setup(plugins, require "lazy_config")
