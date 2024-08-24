@@ -20,4 +20,4 @@ vim.opt.rtp:prepend(lazypath)
 
 require "plugins"
 
-vim.cmd "colorscheme aurora"
+vim.cmd "colorscheme sakura"

@@ -26,7 +26,7 @@ map("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = 
 -- Bufferline, cycle buffers
 map("n", "<Tab>", "<cmd>BufferLineCycleNext<CR>", { desc = "Next buffer" })
 map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<CR>", { desc = "Previous buffer" })
-map("n", "<leader>x", "<cmd>bd<CR>", { desc = "Close current buffer" })
+map("n", "<leader>x", "<cmd>BufDel<CR>", { desc = "Close current buffer" })
 
 -- Comment.nvim
 map("n", "<leader>/", "gcc", { desc = "Toggle line comment", remap = true })
@@ -36,8 +36,8 @@ map("v", "<leader>/", "gc", { desc = "Toggle selection comment", remap = true })
 map("n", "<leader>o", "<cmd>Outline<CR>", { desc = "Toggle Outline" })
 
 -- Multiple-cursors.nvim
-map({ "n", "x" }, "<C-j>", "<Cmd>MultipleCursorsAddDown<CR>", { desc = "Add cursor below" })
-map({ "n", "x" }, "<C-k>", "<Cmd>MultipleCursorsAddUp<CR>", { desc = "Add cursor above" })
+-- map({ "n", "x" }, "<C-j>", "<Cmd>MultipleCursorsAddDown<CR>", { desc = "Add cursor below" })
+-- map({ "n", "x" }, "<C-k>", "<Cmd>MultipleCursorsAddUp<CR>", { desc = "Add cursor above" })
 
 map({ "n", "i", "x" }, "<C-Up>", "<Cmd>MultipleCursorsAddUp<CR>", { desc = "Add cursor above" })
 map({ "n", "i", "x" }, "<C-Down>", "<Cmd>MultipleCursorsAddDown<CR>", { desc = "Add cursor below" })
@@ -57,10 +57,5 @@ map({ "n", "x" }, "<Leader>D", "<Cmd>MultipleCursorsJumpNextMatch<CR>", { desc =
 
 map({ "n", "x" }, "<Leader>l", "<Cmd>MultipleCursorsLock<CR>", { desc = "Lock virtual cursors" })
 
--- Trouble
-map("n", "<leader>xx", "<cmd>TroubleToggle<cr>", { desc = "Toggle diagnostics (Trouble)" })
-map("n", "<leader>xX", "<cmd>TroubleToggle document_diagnostics<cr>", { desc = "Toggle buffer diagnostics (Trouble)" })
-map("n", "<leader>cs", "<cmd>TroubleToggle lsp_workspace_symbols<cr>", { desc = "Toggle workspace symbols (Trouble)" })
-map("n", "<leader>cl", "<cmd>TroubleToggle lsp_references<cr>", { desc = "Toggle LSP references (Trouble)" })
-map("n", "<leader>xL", "<cmd>TroubleToggle loclist<cr>", { desc = "Toggle location list (Trouble)" })
-map("n", "<leader>xQ", "<cmd>TroubleToggle quickfix<cr>", { desc = "Toggle quickfix list (Trouble)" })
+-- inc-rename
+vim.keymap.set("n", "<leader>rn", "<cmd> IncRename <cr>")

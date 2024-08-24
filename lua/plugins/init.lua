@@ -1,9 +1,18 @@
 local plugins = {
-  { lazy = true, "nvim-lua/plenary.nvim" },
+  { lazy = true, "numToStr/Sakura.nvim" },
 
   {
-    "erikbackman/aurora.vim",
+    "2giosangmitom/nightfall.nvim",
+    lazy = false,
     priority = 1000,
+    config = function()
+      require("nightfall").setup {
+        styles = {
+          comments = { italic = false },
+          keywords = { italic = false },
+        },
+      }
+    end,
   },
 
   -- file tree
@@ -188,7 +197,7 @@ local plugins = {
 
   {
     "hedyhli/outline.nvim",
-    event = "VeryLazy",
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
       require("outline").setup {}
     end,
@@ -204,6 +213,38 @@ local plugins = {
     "folke/trouble.nvim",
     opts = {}, -- for default options, refer to the configuration section for custom setup.
     cmd = "Trouble",
+    keys = {
+      {
+        "<leader>xx",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics (Trouble)",
+      },
+      {
+        "<leader>xX",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      },
+      {
+        "<leader>cs",
+        "<cmd>Trouble symbols toggle focus=false<cr>",
+        desc = "Symbols (Trouble)",
+      },
+      {
+        "<leader>cl",
+        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+        desc = "LSP Definitions / references / ... (Trouble)",
+      },
+      {
+        "<leader>xL",
+        "<cmd>Trouble loclist toggle<cr>",
+        desc = "Location List (Trouble)",
+      },
+      {
+        "<leader>xQ",
+        "<cmd>Trouble qflist toggle<cr>",
+        desc = "Quickfix List (Trouble)",
+      },
+    },
   },
 
   {
@@ -218,6 +259,30 @@ local plugins = {
     "stevearc/dressing.nvim",
     lazy = false,
     opts = {},
+  },
+
+  {
+    "smjonas/inc-rename.nvim",
+    config = function()
+      require("inc_rename").setup {
+        input_buffer_type = "dressing",
+      }
+    end,
+  },
+
+  {
+    "mrcjkb/rustaceanvim",
+    version = "^5", -- Recommended
+    lazy = false, -- This plugin is already lazy
+  },
+  {
+    "ojroques/nvim-bufdel",
+    config = function()
+      require("bufdel").setup {
+        next = "tabs",
+        quit = false, -- quit Neovim when last buffer is closed
+      }
+    end,
   },
 }
 
