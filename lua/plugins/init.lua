@@ -1,19 +1,4 @@
 local plugins = {
-  { lazy = true, "numToStr/Sakura.nvim" },
-
-  {
-    "2giosangmitom/nightfall.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require("nightfall").setup {
-        styles = {
-          comments = { italic = false },
-          keywords = { italic = false },
-        },
-      }
-    end,
-  },
 
   -- file tree
   {
