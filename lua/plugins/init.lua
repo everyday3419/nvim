@@ -1,4 +1,11 @@
-local plugins = {
+return {
+  { lazy = true, "nvim-lua/plenary.nvim" },
+
+  {
+    "EdenEast/nightfox.nvim",
+    priority = 1000,
+    config = true,
+  },
 
   -- file tree
   {
@@ -24,9 +31,7 @@ local plugins = {
   -- icons, for UI related plugins
   {
     "nvim-tree/nvim-web-devicons",
-    config = function()
-      require("nvim-web-devicons").setup()
-    end,
+    opts = {},
   },
 
   -- syntax highlighting
@@ -42,9 +47,7 @@ local plugins = {
   {
     "akinsho/bufferline.nvim",
     event = "BufReadPre",
-    config = function()
-      require "plugins.configs.bufferline"
-    end,
+    opts = require "plugins.configs.bufferline",
   },
 
   -- statusline
@@ -95,8 +98,8 @@ local plugins = {
         end,
       },
     },
-    config = function()
-      require "plugins.configs.cmp"
+    opts = function()
+      return require "plugins.configs.cmp"
     end,
   },
 
@@ -104,9 +107,7 @@ local plugins = {
     "williamboman/mason.nvim",
     build = ":MasonUpdate",
     cmd = { "Mason", "MasonInstall" },
-    config = function()
-      require("mason").setup()
-    end,
+    opts = {},
   },
 
   -- lsp
@@ -122,9 +123,7 @@ local plugins = {
   {
     "stevearc/conform.nvim",
     lazy = false,
-    config = function()
-      require "plugins.configs.conform"
-    end,
+    opts = require "plugins.configs.conform",
   },
 
   -- indent lines
@@ -143,18 +142,14 @@ local plugins = {
   {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
-    config = function()
-      require "plugins.configs.telescope"
-    end,
+    opts = require "plugins.configs.telescope",
   },
 
   -- git status on signcolumn etc
   {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
-    config = function()
-      require("gitsigns").setup()
-    end,
+    opts = {},
   },
 
   {
@@ -257,9 +252,15 @@ local plugins = {
 
   {
     "mrcjkb/rustaceanvim",
-    version = "^5", -- Recommended
-    lazy = false, -- This plugin is already lazy
+    version = "^5",
+    lazy = false,
+    ["rust-analyzer"] = {
+      check = {
+        allFeatures = true,
+      },
+    },
   },
+
   {
     "ojroques/nvim-bufdel",
     config = function()
@@ -269,6 +270,26 @@ local plugins = {
       }
     end,
   },
-}
 
-require("lazy").setup(plugins, require "lazy_config")
+  {
+    "Exafunction/codeium.vim",
+    lazy = false,
+    config = function()
+      vim.keymap.set("i", "<C-g>", function()
+        return vim.fn["codeium#Accept"]()
+      end, { expr = true, silent = true })
+      vim.keymap.set("i", "<c-;>", function()
+        return vim.fn["codeium#CycleCompletions"](1)
+      end, { expr = true, silent = true })
+      vim.keymap.set("i", "<c-,>", function()
+        return vim.fn["codeium#CycleCompletions"](-1)
+      end, { expr = true, silent = true })
+      vim.keymap.set("i", "<c-x>", function()
+        return vim.fn["codeium#Clear"]()
+      end, { expr = true, silent = true })
+      vim.keymap.set("n", "<leader>ce", function()
+        return vim.fn["codeium#Chat"]()
+      end, { expr = true, silent = true })
+    end,
+  },
+}

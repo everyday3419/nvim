@@ -1,6 +1,6 @@
 local cmp = require "cmp"
 
-cmp.setup {
+return {
   snippet = {
     expand = function(args)
       require("luasnip").lsp_expand(args.body)
@@ -14,7 +14,7 @@ cmp.setup {
     ["<CR>"] = cmp.mapping.confirm { select = true },
 
     -- luasnip
-    ["<C-j>"] = cmp.mapping(function(fallback)
+    ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
       elseif require("luasnip").expand_or_jumpable() then
@@ -26,7 +26,7 @@ cmp.setup {
       "i",
       "s",
     }),
-    ["<C-k>"] = cmp.mapping(function(fallback)
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
       elseif require("luasnip").jumpable(-1) then

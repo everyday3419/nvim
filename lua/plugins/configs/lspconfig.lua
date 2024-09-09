@@ -76,7 +76,7 @@ lspconfig.lua_ls.setup {
 --   },
 -- }
 
-lspconfig.tsserver.setup {
+lspconfig.ts_ls.setup {
   capabilities = capabilities,
 }
 
@@ -96,7 +96,7 @@ lspconfig.gopls.setup {
 }
 
 -- setup multiple servers with same default options
-local servers = { "tsserver", "html", "cssls" }
+local servers = { "html", "cssls" }
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {

@@ -29,9 +29,12 @@ o.splitright = true
 o.termguicolors = true
 o.timeoutlen = 400
 o.undofile = true
+o.cursorline = true
 
 o.scrolloff = 10
 o.sidescrolloff = 10
+
+vim.api.nvim_set_hl(0, "IndentLine", { link = "Comment" })
 
 -- add binaries installed by mason.nvim to path
 local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
