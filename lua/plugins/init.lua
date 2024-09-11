@@ -2,12 +2,15 @@ return {
   { lazy = true, "nvim-lua/plenary.nvim" },
 
   {
-    "EdenEast/nightfox.nvim",
+    "catppuccin/nvim",
     priority = 1000,
-    config = true,
+    config = function()
+      require("catppuccin").setup {
+        no_italic = true,
+      }
+    end,
   },
 
-  -- file tree
   {
     "nvim-tree/nvim-tree.lua",
     event = "VeryLazy",
@@ -28,13 +31,11 @@ return {
     end,
   },
 
-  -- icons, for UI related plugins
   {
     "nvim-tree/nvim-web-devicons",
     opts = {},
   },
 
-  -- syntax highlighting
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -43,14 +44,11 @@ return {
     end,
   },
 
-  -- buffer + tab line
   {
     "akinsho/bufferline.nvim",
     event = "BufReadPre",
     opts = require "plugins.configs.bufferline",
   },
-
-  -- statusline
 
   {
     "echasnovski/mini.statusline",
@@ -59,9 +57,6 @@ return {
     end,
   },
 
-  -- we use cmp plugin only when in insert mode
-  -- so lets lazyload it at InsertEnter event, to know all the events check h-events
-  -- completion , now all of these plugins are dependent on cmp, we load them after cmp
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
@@ -110,7 +105,6 @@ return {
     opts = {},
   },
 
-  -- lsp
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
@@ -119,33 +113,18 @@ return {
     end,
   },
 
-  -- formatting , linting
   {
     "stevearc/conform.nvim",
     lazy = false,
     opts = require "plugins.configs.conform",
   },
 
-  -- indent lines
-  -- {
-  --   "lukas-reineke/indent-blankline.nvim",
-  --   event = { "BufReadPre", "BufNewFile" },
-  --   config = function()
-  --     require("ibl").setup {
-  --       indent = { char = "│" },
-  --       scope = { char = "│", highlight = "Comment" },
-  --     }
-  --   end,
-  -- },
-
-  -- files finder etc
   {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
     opts = require "plugins.configs.telescope",
   },
 
-  -- git status on signcolumn etc
   {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },

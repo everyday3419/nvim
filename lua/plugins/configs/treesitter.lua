@@ -1,5 +1,5 @@
-return {
-  ensure_installed = { "lua", "vim", "vimdoc", "html", "css", "typescript", "javascript", "rust" },
+require("nvim-treesitter.configs").setup {
+  ensure_installed = { "lua", "vim", "vimdoc", "html", "css", "typescript", "javascript", "rust", "go" },
 
   highlight = {
     enable = true,
