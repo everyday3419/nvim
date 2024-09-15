@@ -19,6 +19,8 @@ o.ignorecase = true
 o.smartcase = true
 o.mouse = "a"
 
+o.wrap = false
+
 -- Numbers
 o.number = true
 o.relativenumber = true
