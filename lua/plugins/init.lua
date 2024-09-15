@@ -2,13 +2,8 @@ return {
   { lazy = true, "nvim-lua/plenary.nvim" },
 
   {
-    "catppuccin/nvim",
+    "numToStr/Sakura.nvim",
     priority = 1000,
-    config = function()
-      require("catppuccin").setup {
-        no_italic = true,
-      }
-    end,
   },
 
   {
@@ -245,7 +240,7 @@ return {
     config = function()
       require("bufdel").setup {
         next = "tabs",
-        quit = false, -- quit Neovim when last buffer is closed
+        quit = false,
       }
     end,
   },
