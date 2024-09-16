@@ -165,7 +165,10 @@ return {
 
   {
     "folke/trouble.nvim",
-    opts = {}, -- for default options, refer to the configuration section for custom setup.
+    opts = {
+      focus = true,
+      auto_close = true,
+    },
     cmd = "Trouble",
     keys = {
       {
@@ -265,5 +268,10 @@ return {
         return vim.fn["codeium#Chat"]()
       end, { expr = true, silent = true })
     end,
+  },
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {},
   },
 }
