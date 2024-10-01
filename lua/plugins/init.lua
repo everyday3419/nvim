@@ -5,7 +5,7 @@ return {
   --   "numToStr/Sakura.nvim",
   --   priority = 1000,
   -- },
-  --
+
   {
     "catppuccin/nvim",
     config = function()
@@ -14,10 +14,29 @@ return {
         no_italic = true,
         no_bold = false,
       }
-
-      vim.cmd.colorscheme "catppuccin"
     end,
   },
+
+  -- {
+  --   "sainnhe/gruvbox-material",
+  --   config = function()
+  --     vim.cmd [[
+  --           " https://github.com/sainnhe/gruvbox-material/blob/master/doc/gruvbox-material.txt
+  --           " Important!!
+  --           " For dark version.
+  --           set background=dark
+  --           " Set contrast.
+  --           " This configuration option should be placed before `colorscheme gruvbox-material`.
+  --           " Available values: 'hard', 'medium'(default), 'soft'
+  --           let g:gruvbox_material_background = 'hard'
+  --
+  --           let g:gruvbox_material_diagnostic_text_highlight = 1
+  --           " let g:gruvbox_material_diagnostic_line_highlight = 1
+  --
+  --           colorscheme gruvbox-material
+  --           ]]
+  --   end,
+  -- },
 
   {
     "nvim-tree/nvim-tree.lua",
@@ -232,15 +251,6 @@ return {
   },
 
   {
-    "smjonas/inc-rename.nvim",
-    config = function()
-      require("inc_rename").setup {
-        input_buffer_type = "dressing",
-      }
-    end,
-  },
-
-  {
     "mrcjkb/rustaceanvim",
     version = "^5",
     lazy = false,
@@ -317,7 +327,7 @@ return {
     ---@type AutoSession.Config
     opts = {
 
-      -- auto_restore = false,
+      auto_restore = false,
       session_lens = {
         load_on_setup = true,
         previewer = false,
@@ -330,5 +340,12 @@ return {
         },
       },
     },
+  },
+
+  {
+    "tiagovla/scope.nvim",
+    config = function()
+      require("scope").setup()
+    end,
   },
 }

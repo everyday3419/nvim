@@ -57,5 +57,8 @@ map({ "n", "x" }, "<Leader>D", "<Cmd>MultipleCursorsJumpNextMatch<CR>", { desc =
 
 map({ "n", "x" }, "<Leader>l", "<Cmd>MultipleCursorsLock<CR>", { desc = "Lock virtual cursors" })
 
--- inc-rename
-vim.keymap.set("n", "<leader>rn", "<cmd> IncRename <cr>")
+-- Scope.nvim
+map("n", "<leader>ta", "<cmd>tabnew<CR>", { desc = "New scope" })
+map("n", "<leader>tc", "<cmd>tabclose<CR>", { desc = "Close scope" })
+map("n", "<leader>tn", "<cmd>tabnext<CR>", { desc = "Next scope" })
+map("n", "<leader>tp", "<cmd>tabprevious<CR>", { desc = "Previous scope" })
