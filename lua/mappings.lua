@@ -2,7 +2,6 @@ local map = vim.keymap.set
 
 -- General mappings
 map("n", "<C-s>", "<cmd>w<CR>", { desc = "Save current buffer" })
-map("i", "jj", "<ESC>", { desc = "Exit insert mode" })
 map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "Copy entire file to clipboard" })
 
 map("n", "<m-j>", "<C-w>j", { desc = "Move to window below", noremap = true, silent = true })

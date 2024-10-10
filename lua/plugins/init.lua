@@ -1,21 +1,21 @@
 return {
   { lazy = true, "nvim-lua/plenary.nvim" },
 
-  -- {
-  --   "numToStr/Sakura.nvim",
-  --   priority = 1000,
-  -- },
-
   {
-    "catppuccin/nvim",
-    config = function()
-      require("catppuccin").setup {
-        flavour = "mocha",
-        no_italic = true,
-        no_bold = false,
-      }
-    end,
+    "numToStr/Sakura.nvim",
+    priority = 1000,
   },
+
+  -- {
+  --   "catppuccin/nvim",
+  --   config = function()
+  --     require("catppuccin").setup {
+  --       flavour = "mocha",
+  --       no_italic = true,
+  --       no_bold = false,
+  --     }
+  --   end,
+  -- },
 
   -- {
   --   "sainnhe/gruvbox-material",
@@ -35,6 +35,19 @@ return {
   --
   --           colorscheme gruvbox-material
   --           ]]
+  --   end,
+  -- },
+
+  -- {
+  --   "folke/tokyonight.nvim",
+  --   config = function()
+  --     require("tokyonight").setup {
+  --       style = "night", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
+  --       styles = {
+  --         comments = { italic = false },
+  --         keywords = { italic = false },
+  --       },
+  --     }
   --   end,
   -- },
 
@@ -346,6 +359,13 @@ return {
     "tiagovla/scope.nvim",
     config = function()
       require("scope").setup()
+    end,
+  },
+
+  {
+    "max397574/better-escape.nvim",
+    config = function()
+      require("better_escape").setup()
     end,
   },
 }

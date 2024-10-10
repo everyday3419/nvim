@@ -96,6 +96,14 @@ lspconfig.gopls.setup {
   },
 }
 
+lspconfig.jsonls.setup {
+  capabilities = capabilities,
+}
+
+lspconfig.prismals.setup {
+  capabilities = capabilities,
+}
+
 -- setup multiple servers with same default options
 local servers = { "html", "cssls" }
 
