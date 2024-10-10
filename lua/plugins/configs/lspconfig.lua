@@ -7,8 +7,25 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration", buffer = ev.buf })
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition", buffer = ev.buf })
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Show hover information", buffer = ev.buf })
-    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation", buffer = ev.buf })
+    vim.keymap.set(
+      "n",
+      "gvd",
+      "<cmd>vsplit<CR><cmd>lua vim.lsp.buf.definition()<CR>",
+      { desc = "Go to declaration in vertical split", buffer = ev.buf }
+    )
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Show hover information in vertical split", buffer = ev.buf })
+    vim.keymap.set(
+      "n",
+      "gvi",
+      "<cmd>vsplit<CR><cmd>lua vim.lsp.buf.implementation()<CR>",
+      { desc = "Go to implementation", buffer = ev.buf }
+    )
+    vim.keymap.set(
+      "n",
+      "gvd",
+      "<cmd>vsplit<CR><cmd>lua vim.lsp.buf.definition()<CR>",
+      { desc = "Go to declaration", buffer = ev.buf }
+    )
     vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { desc = "Show signature help", buffer = ev.buf })
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename symbol", buffer = ev.buf })
     vim.keymap.set(
