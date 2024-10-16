@@ -50,6 +50,21 @@ return {
   --     }
   --   end,
   -- },
+  --
+  --
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    config = function()
+      require("rose-pine").setup {
+        styles = {
+          bold = true,
+          italic = false,
+          transparency = false,
+        },
+      }
+    end,
+  },
 
   {
     "nvim-tree/nvim-tree.lua",
@@ -362,10 +377,17 @@ return {
     end,
   },
 
+  -- {
+  --   "max397574/better-escape.nvim",
+  --   config = function()
+  --     require("better_escape").setup()
+  --   end,
+  -- },
+
   {
-    "max397574/better-escape.nvim",
+    "karb94/neoscroll.nvim",
     config = function()
-      require("better_escape").setup()
+      require("neoscroll").setup {}
     end,
   },
 }
