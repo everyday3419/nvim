@@ -20,7 +20,12 @@ map("n", "<leader>fo", "<cmd>Telescope oldfiles<CR>", { desc = "Open recent file
 map("n", "<leader>fw", "<cmd>Telescope live_grep<CR>", { desc = "Search text in workspace" })
 map("n", "<leader>gt", "<cmd>Telescope git_status<CR>", { desc = "Show Git status" })
 map("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "Show open buffers" })
-map("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "Search in current buffer" })
+map(
+  "n",
+  "<leader>fz",
+  "<cmd>Telescope current_buffer_fuzzy_find previewer=true<CR>",
+  { desc = "Search in current buffer with preview" }
+)
 
 -- Bufferline, cycle buffers
 map("n", "<Tab>", "<cmd>BufferLineCycleNext<CR>", { desc = "Next buffer" })
@@ -30,31 +35,6 @@ map("n", "<leader>x", "<cmd>BufDel<CR>", { desc = "Close current buffer" })
 -- Comment.nvim
 map("n", "<leader>/", "gcc", { desc = "Toggle line comment", remap = true })
 map("v", "<leader>/", "gc", { desc = "Toggle selection comment", remap = true })
-
--- Outline plugin
-map("n", "<leader>o", "<cmd>Outline<CR>", { desc = "Toggle Outline" })
-
--- Multiple-cursors.nvim
--- map({ "n", "x" }, "<C-j>", "<Cmd>MultipleCursorsAddDown<CR>", { desc = "Add cursor below" })
--- map({ "n", "x" }, "<C-k>", "<Cmd>MultipleCursorsAddUp<CR>", { desc = "Add cursor above" })
-
-map({ "n", "i", "x" }, "<C-Up>", "<Cmd>MultipleCursorsAddUp<CR>", { desc = "Add cursor above" })
-map({ "n", "i", "x" }, "<C-Down>", "<Cmd>MultipleCursorsAddDown<CR>", { desc = "Add cursor below" })
-
-map({ "n", "i" }, "<C-LeftMouse>", "<Cmd>MultipleCursorsMouseAddDelete<CR>", { desc = "Add/remove cursor" })
-
-map({ "n", "x" }, "<Leader>a", "<Cmd>MultipleCursorsAddMatches<CR>", { desc = "Add cursors to cword" })
-map({ "n", "x" }, "<Leader>A", "<Cmd>MultipleCursorsAddMatchesV<CR>", { desc = "Add cursors to cword (visual)" })
-
-map(
-  { "n", "x" },
-  "<Leader>d",
-  "<Cmd>MultipleCursorsAddJumpNextMatch<CR>",
-  { desc = "Add cursor and jump to next match" }
-)
-map({ "n", "x" }, "<Leader>D", "<Cmd>MultipleCursorsJumpNextMatch<CR>", { desc = "Jump to next match" })
-
-map({ "n", "x" }, "<Leader>l", "<Cmd>MultipleCursorsLock<CR>", { desc = "Lock virtual cursors" })
 
 -- Scope.nvim
 map("n", "<leader>ta", "<cmd>tabnew<CR>", { desc = "New scope" })

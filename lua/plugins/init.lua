@@ -1,10 +1,10 @@
 return {
   { lazy = true, "nvim-lua/plenary.nvim" },
 
-  {
-    "numToStr/Sakura.nvim",
-    priority = 1000,
-  },
+  -- {
+  --   "numToStr/Sakura.nvim",
+  --   priority = 1000,
+  -- },
 
   -- {
   --   "catppuccin/nvim",
@@ -17,50 +17,14 @@ return {
   --   end,
   -- },
 
-  -- {
-  --   "sainnhe/gruvbox-material",
-  --   config = function()
-  --     vim.cmd [[
-  --           " https://github.com/sainnhe/gruvbox-material/blob/master/doc/gruvbox-material.txt
-  --           " Important!!
-  --           " For dark version.
-  --           set background=dark
-  --           " Set contrast.
-  --           " This configuration option should be placed before `colorscheme gruvbox-material`.
-  --           " Available values: 'hard', 'medium'(default), 'soft'
-  --           let g:gruvbox_material_background = 'hard'
-  --
-  --           let g:gruvbox_material_diagnostic_text_highlight = 1
-  --           " let g:gruvbox_material_diagnostic_line_highlight = 1
-  --
-  --           colorscheme gruvbox-material
-  --           ]]
-  --   end,
-  -- },
-
-  -- {
-  --   "folke/tokyonight.nvim",
-  --   config = function()
-  --     require("tokyonight").setup {
-  --       style = "night", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
-  --       styles = {
-  --         comments = { italic = false },
-  --         keywords = { italic = false },
-  --       },
-  --     }
-  --   end,
-  -- },
-  --
-  --
   {
-    "rose-pine/neovim",
-    name = "rose-pine",
+    "folke/tokyonight.nvim",
     config = function()
-      require("rose-pine").setup {
+      require("tokyonight").setup {
+        style = "night", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
         styles = {
-          bold = true,
-          italic = false,
-          transparency = false,
+          comments = { italic = false },
+          keywords = { italic = false },
         },
       }
     end,
@@ -210,20 +174,6 @@ return {
   },
 
   {
-    "hedyhli/outline.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    config = function()
-      require("outline").setup {}
-    end,
-  },
-
-  {
-    "brenton-leighton/multiple-cursors.nvim",
-    version = "*", -- Use the latest tagged version
-    opts = {}, -- This causes the plugin setup function to be called
-  },
-
-  {
     "folke/trouble.nvim",
     opts = {
       focus = true,
@@ -320,11 +270,6 @@ return {
       end, { expr = true, silent = true })
     end,
   },
-  {
-    "folke/todo-comments.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    opts = {},
-  },
 
   {
     "christoomey/vim-tmux-navigator",
@@ -377,17 +322,49 @@ return {
     end,
   },
 
-  -- {
-  --   "max397574/better-escape.nvim",
-  --   config = function()
-  --     require("better_escape").setup()
-  --   end,
-  -- },
+  {
+    "ray-x/go.nvim",
+    dependencies = { -- optional packages
+      "ray-x/guihua.lua",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      require("go").setup()
+    end,
+    event = { "CmdlineEnter" },
+    ft = { "go", "gomod" },
+    build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
+  },
 
   {
-    "karb94/neoscroll.nvim",
+    "max397574/better-escape.nvim",
     config = function()
-      require("neoscroll").setup {}
+      -- lua, default settings
+      require("better_escape").setup {
+        timeout = vim.o.timeoutlen,
+        default_mappings = false,
+        mappings = {
+          i = {
+            j = {
+              j = "<Esc>",
+            },
+          },
+          c = {
+            j = {
+              j = "<Esc>",
+            },
+          },
+          t = {
+            j = {},
+          },
+          v = {
+            j = {},
+          },
+          s = {
+            j = {},
+          },
+        },
+      }
     end,
   },
 }

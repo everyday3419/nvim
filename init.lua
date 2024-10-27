@@ -22,4 +22,4 @@ local plugins = require "plugins"
 
 require("lazy").setup(plugins, require "lazy_config")
 
-vim.cmd "colorscheme sakura"
+vim.cmd "colorscheme tokyonight"
