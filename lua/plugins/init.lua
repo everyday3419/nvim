@@ -6,6 +6,37 @@ return {
   --   priority = 1000,
   -- },
 
+  {
+    "rebelot/kanagawa.nvim",
+    config = function()
+      require("kanagawa").setup {
+        commentStyle = { italic = false },
+        keywordStyle = { italic = false },
+        overrides = function(colors)
+          local theme = colors.theme
+          return {
+            ["@variable.builtin"] = { italic = false },
+            Visual = { bg = theme.ui.bg_p2 },
+          }
+        end,
+        background = {
+          dark = "dragon",
+        },
+      }
+      local cmp = require "cmp"
+      cmp.setup {
+        window = {
+          completion = cmp.config.window.bordered {
+            winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+          },
+          documentation = cmp.config.window.bordered {
+            winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+          },
+        },
+      }
+    end,
+  },
+
   -- {
   --   "catppuccin/nvim",
   --   config = function()
@@ -17,18 +48,23 @@ return {
   --   end,
   -- },
 
-  {
-    "folke/tokyonight.nvim",
-    config = function()
-      require("tokyonight").setup {
-        style = "night", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
-        styles = {
-          comments = { italic = false },
-          keywords = { italic = false },
-        },
-      }
-    end,
-  },
+  -- {
+  --   "EdenEast/nightfox.nvim",
+  --   priority = 1000,
+  -- },
+
+  -- {
+  --   "folke/tokyonight.nvim",
+  --   config = function()
+  --     require("tokyonight").setup {
+  --       style = "night", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
+  --       styles = {
+  --         comments = { italic = false },
+  --         keywords = { italic = false },
+  --       },
+  --     }
+  --   end,
+  -- },
 
   {
     "nvim-tree/nvim-tree.lua",
@@ -137,6 +173,17 @@ return {
     lazy = false,
     opts = require "plugins.configs.conform",
   },
+
+  -- {
+  --   "lukas-reineke/indent-blankline.nvim",
+  --   event = { "BufReadPre", "BufNewFile" },
+  --   config = function()
+  --     require("ibl").setup {
+  --       indent = { char = "│" },
+  --       scope = { char = "│", highlight = "Comment" },
+  --     }
+  --   end,
+  -- },
 
   {
     "nvim-telescope/telescope.nvim",
