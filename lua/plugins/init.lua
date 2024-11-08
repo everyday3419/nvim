@@ -1,70 +1,18 @@
 return {
   { lazy = true, "nvim-lua/plenary.nvim" },
 
-  -- {
-  --   "numToStr/Sakura.nvim",
-  --   priority = 1000,
-  -- },
-
   {
-    "rebelot/kanagawa.nvim",
+    "folke/tokyonight.nvim",
     config = function()
-      require("kanagawa").setup {
-        commentStyle = { italic = false },
-        keywordStyle = { italic = false },
-        overrides = function(colors)
-          local theme = colors.theme
-          return {
-            ["@variable.builtin"] = { italic = false },
-            Visual = { bg = theme.ui.bg_p2 },
-          }
-        end,
-        background = {
-          dark = "dragon",
-        },
-      }
-      local cmp = require "cmp"
-      cmp.setup {
-        window = {
-          completion = cmp.config.window.bordered {
-            winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-          },
-          documentation = cmp.config.window.bordered {
-            winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-          },
+      require("tokyonight").setup {
+        style = "night",
+        styles = {
+          comments = { italic = false },
+          keywords = { italic = false },
         },
       }
     end,
   },
-
-  -- {
-  --   "catppuccin/nvim",
-  --   config = function()
-  --     require("catppuccin").setup {
-  --       flavour = "mocha",
-  --       no_italic = true,
-  --       no_bold = false,
-  --     }
-  --   end,
-  -- },
-
-  -- {
-  --   "EdenEast/nightfox.nvim",
-  --   priority = 1000,
-  -- },
-
-  -- {
-  --   "folke/tokyonight.nvim",
-  --   config = function()
-  --     require("tokyonight").setup {
-  --       style = "night", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
-  --       styles = {
-  --         comments = { italic = false },
-  --         keywords = { italic = false },
-  --       },
-  --     }
-  --   end,
-  -- },
 
   {
     "nvim-tree/nvim-tree.lua",
@@ -413,5 +361,18 @@ return {
         },
       }
     end,
+  },
+
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
+
+      "nvim-telescope/telescope.nvim",
+      "ibhagwan/fzf-lua",
+      "echasnovski/mini.pick",
+    },
+    config = true,
   },
 }

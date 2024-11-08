@@ -41,3 +41,6 @@ map("n", "<leader>ta", "<cmd>tabnew<CR>", { desc = "New scope" })
 map("n", "<leader>tc", "<cmd>tabclose<CR>", { desc = "Close scope" })
 map("n", "<leader>tn", "<cmd>tabnext<CR>", { desc = "Next scope" })
 map("n", "<leader>tp", "<cmd>tabprevious<CR>", { desc = "Previous scope" })
+
+-- Neogit
+map("n", "<leader>gg", "<cmd>Neogit<CR>", { desc = "Open Neogit" })

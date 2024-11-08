@@ -33,8 +33,8 @@ o.timeoutlen = 400
 o.undofile = true
 o.cursorline = true
 
--- o.scrolloff = 4
--- o.sidescrolloff = 4
+o.scrolloff = 2
+o.sidescrolloff = 6
 
 vim.api.nvim_set_hl(0, "IndentLine", { link = "Comment" })
 
