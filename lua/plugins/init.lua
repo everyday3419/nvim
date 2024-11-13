@@ -281,36 +281,6 @@ return {
   { "wakatime/vim-wakatime", lazy = false },
 
   {
-    "rmagatti/auto-session",
-    lazy = false,
-    keys = {
-      { "<leader>wf", "<cmd>SessionSearch<CR>", desc = "Session search" },
-      { "<leader>ws", "<cmd>SessionSave<CR>", desc = "Save session" },
-      { "<leader>wa", "<cmd>SessionToggleAutoSave<CR>", desc = "Toggle autosave" },
-    },
-
-    suppressed_dirs = { "~/", "/" },
-
-    ---@module "auto-session"
-    ---@type AutoSession.Config
-    opts = {
-
-      auto_restore = false,
-      session_lens = {
-        load_on_setup = true,
-        previewer = false,
-        mappings = {
-          delete_session = { "i", "<C-D>" },
-          alternate_session = { "i", "<C-S>" },
-        },
-        theme_conf = {
-          border = true,
-        },
-      },
-    },
-  },
-
-  {
     "tiagovla/scope.nvim",
     config = function()
       require("scope").setup()
