@@ -7,6 +7,8 @@ o.showmode = false
 
 o.clipboard = "unnamedplus"
 
+o.nu = true
+
 -- Indenting
 o.expandtab = true
 o.shiftwidth = 2
@@ -33,10 +35,12 @@ o.timeoutlen = 400
 o.undofile = true
 o.cursorline = true
 
-o.scrolloff = 2
+o.scrolloff = 6
 o.sidescrolloff = 6
 
 vim.api.nvim_set_hl(0, "IndentLine", { link = "Comment" })
+
+vim.o.guicursor = "n-v-c:block,i:block"
 
 -- add binaries installed by mason.nvim to path
 local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
