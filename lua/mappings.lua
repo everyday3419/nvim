@@ -36,11 +36,5 @@ map("n", "<leader>x", "<cmd>BufDel<CR>", { desc = "Close current buffer" })
 map("n", "<leader>/", "gcc", { desc = "Toggle line comment", remap = true })
 map("v", "<leader>/", "gc", { desc = "Toggle selection comment", remap = true })
 
--- Scope.nvim
-map("n", "<leader>ta", "<cmd>tabnew<CR>", { desc = "New scope" })
-map("n", "<leader>tc", "<cmd>tabclose<CR>", { desc = "Close scope" })
-map("n", "<leader>tn", "<cmd>tabnext<CR>", { desc = "Next scope" })
-map("n", "<leader>tp", "<cmd>tabprevious<CR>", { desc = "Previous scope" })
-
 -- Neogit
 map("n", "<leader>gg", "<cmd>Neogit<CR>", { desc = "Open Neogit" })

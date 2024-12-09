@@ -2,32 +2,22 @@ return {
   { lazy = true, "nvim-lua/plenary.nvim" },
 
   {
-    "folke/tokyonight.nvim",
+    "marko-cerovac/material.nvim",
     config = function()
-      require("tokyonight").setup {
-        style = "night",
-        styles = {
-          comments = { italic = false },
-          keywords = { italic = false },
-        },
-      }
-
-      vim.cmd.colorscheme "tokyonight"
+      -- require("material").setup {
+      --   disable = {
+      --     colored_cursor = true, -- Disable the colored cursor
+      --   },
+      -- }
+      vim.g.material_style = "darker"
+      vim.cmd.colorscheme "material"
     end,
   },
 
   -- {
-  --   "myypo/borrowed.nvim",
-  --   lazy = false,
-  --   priority = 1000,
-  --
-  --   version = "^0", -- Optional: avoid upgrading to breaking versions
-  --
+  --   "LunarVim/lunar.nvim",
   --   config = function()
-  --     -- require("borrowed").setup({ ... }) -- Optional: only has to be called to change settings
-  --
-  --     -- If you are changing the config, colorscheme command has to be called after setup()
-  --     vim.cmd "colorscheme mayu" -- OR vim.cmd("colorscheme shin")
+  --     vim.cmd.colorscheme "lunar"
   --   end,
   -- },
 
@@ -39,7 +29,6 @@ return {
         view = {
           relativenumber = true,
           adaptive_size = true,
-          side = "right",
         },
         diagnostics = {
           enable = true,
@@ -240,16 +229,11 @@ return {
     opts = {},
   },
 
-  {
-    "mrcjkb/rustaceanvim",
-    version = "^5",
-    lazy = false,
-    ["rust-analyzer"] = {
-      check = {
-        allFeatures = true,
-      },
-    },
-  },
+  -- {
+  --   "mrcjkb/rustaceanvim",
+  --   version = "^5",
+  --   lazy = false,
+  -- },
 
   {
     "ojroques/nvim-bufdel",
@@ -296,13 +280,6 @@ return {
   },
 
   { "wakatime/vim-wakatime", lazy = false },
-
-  {
-    "tiagovla/scope.nvim",
-    config = function()
-      require("scope").setup()
-    end,
-  },
 
   {
     "ray-x/go.nvim",
