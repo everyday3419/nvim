@@ -82,18 +82,18 @@ lspconfig.lua_ls.setup {
   },
 }
 
-lspconfig.rust_analyzer.setup {
-  capabilities = capabilities,
-  filetypes = { "rust" },
-  root_dir = lspconfig.util.root_pattern "Cargo.toml",
-  settings = {
-    ["rust-analyzer"] = {
-      check = {
-        allFeatures = true,
-      },
-    },
-  },
-}
+-- lspconfig.rust_analyzer.setup {
+--   capabilities = capabilities,
+--   filetypes = { "rust" },
+--   root_dir = lspconfig.util.root_pattern "Cargo.toml",
+--   settings = {
+--     ["rust-analyzer"] = {
+--       check = {
+--         allFeatures = true,
+--       },
+--     },
+--   },
+-- }
 
 lspconfig.ts_ls.setup {
   capabilities = capabilities,

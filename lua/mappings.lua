@@ -28,8 +28,8 @@ map(
 )
 
 -- Bufferline, cycle buffers
-map("n", "<Tab>", "<cmd>BufferLineCycleNext<CR>", { desc = "Next buffer" })
-map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<CR>", { desc = "Previous buffer" })
+map("n", "<Tab>", "<cmd>bnext<CR>", { desc = "Next buffer" })
+map("n", "<S-Tab>", "<cmd>bprev<CR>", { desc = "Previous buffer" })
 map("n", "<leader>x", "<cmd>BufDel<CR>", { desc = "Close current buffer" })
 
 -- Comment.nvim

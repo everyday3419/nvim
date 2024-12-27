@@ -1,25 +1,18 @@
 return {
-  { lazy = true, "nvim-lua/plenary.nvim" },
+  { lazy = true,             "nvim-lua/plenary.nvim" },
 
   {
-    "marko-cerovac/material.nvim",
+    "catppuccin/nvim",
     config = function()
-      -- require("material").setup {
-      --   disable = {
-      --     colored_cursor = true, -- Disable the colored cursor
-      --   },
-      -- }
-      vim.g.material_style = "darker"
-      vim.cmd.colorscheme "material"
+      require("catppuccin").setup {
+        flavour = "mocha",
+        no_italic = true,
+        no_bold = false,
+      }
+
+      vim.cmd.colorscheme "catppuccin"
     end,
   },
-
-  -- {
-  --   "LunarVim/lunar.nvim",
-  --   config = function()
-  --     vim.cmd.colorscheme "lunar"
-  --   end,
-  -- },
 
   {
     "nvim-tree/nvim-tree.lua",
@@ -53,17 +46,39 @@ return {
     end,
   },
 
-  {
-    "akinsho/bufferline.nvim",
-    event = "BufReadPre",
-    opts = require "plugins.configs.bufferline",
-  },
+  -- {
+  --   "akinsho/bufferline.nvim",
+  --   event = "BufReadPre",
+  --   opts = require "plugins.configs.bufferline",
+  -- },
+
+  -- {
+  --   "echasnovski/mini.statusline",
+  --   config = function()
+  --     require("mini.statusline").setup { set_vim_settings = false }
+  --   end,
+  -- },
 
   {
-    "echasnovski/mini.statusline",
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
-      require("mini.statusline").setup { set_vim_settings = false }
-    end,
+      require('lualine').setup {
+        options = {
+          icons_enabled = true,
+          component_separators = '|',
+          section_separators = '',
+          theme = "catppuccin"
+        },
+        sections = {
+          lualine_a = {
+            {
+              'buffers',
+            }
+          }
+        }
+      }
+    end
   },
 
   {
@@ -246,26 +261,78 @@ return {
   },
 
   {
-    "Exafunction/codeium.vim",
-    lazy = false,
+    "Exafunction/codeium.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      -- "hrsh7th/nvim-cmp",
+    },
     config = function()
-      vim.keymap.set("i", "<C-g>", function()
-        return vim.fn["codeium#Accept"]()
-      end, { expr = true, silent = true })
-      vim.keymap.set("i", "<c-;>", function()
-        return vim.fn["codeium#CycleCompletions"](1)
-      end, { expr = true, silent = true })
-      vim.keymap.set("i", "<c-,>", function()
-        return vim.fn["codeium#CycleCompletions"](-1)
-      end, { expr = true, silent = true })
-      vim.keymap.set("i", "<c-x>", function()
-        return vim.fn["codeium#Clear"]()
-      end, { expr = true, silent = true })
-      vim.keymap.set("n", "<leader>ce", function()
-        return vim.fn["codeium#Chat"]()
-      end, { expr = true, silent = true })
-    end,
+      require("codeium").setup({
+        -- Optionally disable cmp source if using virtual text only
+        enable_cmp_source = false,
+        virtual_text = {
+          enabled = true,
+
+          -- These are the defaults
+
+          -- Set to true if you never want completions to be shown automatically.
+          manual = false,
+          -- A mapping of filetype to true or false, to enable virtual text.
+          filetypes = {},
+          -- Whether to enable virtual text of not for filetypes not specifically listed above.
+          default_filetype_enabled = true,
+          -- How long to wait (in ms) before requesting completions after typing stops.
+          idle_delay = 75,
+          -- Priority of the virtual text. This usually ensures that the completions appear on top of
+          -- other plugins that also add virtual text, such as LSP inlay hints, but can be modified if
+          -- desired.
+          virtual_text_priority = 65535,
+          -- Set to false to disable all key bindings for managing completions.
+          map_keys = true,
+          -- The key to press when hitting the accept keybinding but no completion is showing.
+          -- Defaults to \t normally or <c-n> when a popup is showing.
+          accept_fallback = nil,
+          -- Key bindings for managing completions in virtual text mode.
+          key_bindings = {
+            -- Accept the current completion.
+            accept = "<Tab>",
+            -- Accept the next word.
+            accept_word = false,
+            -- Accept the next line.
+            accept_line = false,
+            -- Clear the virtual text.
+            clear = false,
+            -- Cycle to the next completion.
+            next = "<M-]>",
+            -- Cycle to the previous completion.
+            prev = "<M-[>",
+          }
+        }
+      })
+    end
   },
+
+  -- {
+  --   "Exafunction/codeium.vim",
+  --   lazy = false,
+  --   config = function()
+  --     vim.keymap.set("i", "<C-g>", function()
+  --       return vim.fn["codeium#Accept"]()
+  --     end, { expr = true, silent = true })
+  --     vim.keymap.set("i", "<c-;>", function()
+  --       return vim.fn["codeium#CycleCompletions"](1)
+  --     end, { expr = true, silent = true })
+  --     vim.keymap.set("i", "<c-,>", function()
+  --       return vim.fn["codeium#CycleCompletions"](-1)
+  --     end, { expr = true, silent = true })
+  --     vim.keymap.set("i", "<c-x>", function()
+  --       return vim.fn["codeium#Clear"]()
+  --     end, { expr = true, silent = true })
+  --     vim.keymap.set("n", "<leader>ce", function()
+  --       return vim.fn["codeium#Chat"]()
+  --     end, { expr = true, silent = true })
+  --   end,
+  -- },
 
   {
     "christoomey/vim-tmux-navigator",
@@ -356,23 +423,29 @@ return {
         end,
         desc = "Open Yank History",
       },
-      { "y", "<Plug>(YankyYank)", mode = { "n", "x" }, desc = "Yank text" },
-      { "p", "<Plug>(YankyPutAfter)", mode = { "n", "x" }, desc = "Put yanked text after cursor" },
-      { "P", "<Plug>(YankyPutBefore)", mode = { "n", "x" }, desc = "Put yanked text before cursor" },
-      { "gp", "<Plug>(YankyGPutAfter)", mode = { "n", "x" }, desc = "Put yanked text after selection" },
-      { "gP", "<Plug>(YankyGPutBefore)", mode = { "n", "x" }, desc = "Put yanked text before selection" },
-      { "<c-p>", "<Plug>(YankyPreviousEntry)", desc = "Select previous entry through yank history" },
-      { "<c-n>", "<Plug>(YankyNextEntry)", desc = "Select next entry through yank history" },
-      { "]p", "<Plug>(YankyPutIndentAfterLinewise)", desc = "Put indented after cursor (linewise)" },
-      { "[p", "<Plug>(YankyPutIndentBeforeLinewise)", desc = "Put indented before cursor (linewise)" },
-      { "]P", "<Plug>(YankyPutIndentAfterLinewise)", desc = "Put indented after cursor (linewise)" },
-      { "[P", "<Plug>(YankyPutIndentBeforeLinewise)", desc = "Put indented before cursor (linewise)" },
-      { ">p", "<Plug>(YankyPutIndentAfterShiftRight)", desc = "Put and indent right" },
-      { "<p", "<Plug>(YankyPutIndentAfterShiftLeft)", desc = "Put and indent left" },
-      { ">P", "<Plug>(YankyPutIndentBeforeShiftRight)", desc = "Put before and indent right" },
-      { "<P", "<Plug>(YankyPutIndentBeforeShiftLeft)", desc = "Put before and indent left" },
-      { "=p", "<Plug>(YankyPutAfterFilter)", desc = "Put after applying a filter" },
-      { "=P", "<Plug>(YankyPutBeforeFilter)", desc = "Put before applying a filter" },
+      { "y",     "<Plug>(YankyYank)",                      mode = { "n", "x" },                                desc = "Yank text" },
+      { "p",     "<Plug>(YankyPutAfter)",                  mode = { "n", "x" },                                desc = "Put yanked text after cursor" },
+      { "P",     "<Plug>(YankyPutBefore)",                 mode = { "n", "x" },                                desc = "Put yanked text before cursor" },
+      { "gp",    "<Plug>(YankyGPutAfter)",                 mode = { "n", "x" },                                desc = "Put yanked text after selection" },
+      { "gP",    "<Plug>(YankyGPutBefore)",                mode = { "n", "x" },                                desc = "Put yanked text before selection" },
+      { "<c-p>", "<Plug>(YankyPreviousEntry)",             desc = "Select previous entry through yank history" },
+      { "<c-n>", "<Plug>(YankyNextEntry)",                 desc = "Select next entry through yank history" },
+      { "]p",    "<Plug>(YankyPutIndentAfterLinewise)",    desc = "Put indented after cursor (linewise)" },
+      { "[p",    "<Plug>(YankyPutIndentBeforeLinewise)",   desc = "Put indented before cursor (linewise)" },
+      { "]P",    "<Plug>(YankyPutIndentAfterLinewise)",    desc = "Put indented after cursor (linewise)" },
+      { "[P",    "<Plug>(YankyPutIndentBeforeLinewise)",   desc = "Put indented before cursor (linewise)" },
+      { ">p",    "<Plug>(YankyPutIndentAfterShiftRight)",  desc = "Put and indent right" },
+      { "<p",    "<Plug>(YankyPutIndentAfterShiftLeft)",   desc = "Put and indent left" },
+      { ">P",    "<Plug>(YankyPutIndentBeforeShiftRight)", desc = "Put before and indent right" },
+      { "<P",    "<Plug>(YankyPutIndentBeforeShiftLeft)",  desc = "Put before and indent left" },
+      { "=p",    "<Plug>(YankyPutAfterFilter)",            desc = "Put after applying a filter" },
+      { "=P",    "<Plug>(YankyPutBeforeFilter)",           desc = "Put before applying a filter" },
     },
+  },
+
+  {
+    'mrcjkb/rustaceanvim',
+    version = '^5', -- Recommended
+    lazy = false,   -- This plugin is already lazy
   },
 }
