@@ -41,11 +41,19 @@ return {
   },
 
   sources = cmp.config.sources {
+    { name = "async_path" },
     { name = "nvim_lsp" },
-    { name = "luasnip" },
     { name = "buffer" },
+    { name = "luasnip" },
     { name = "nvim_lua" },
-    { name = "path" },
     -- { name = "codeium" }
+  },
+
+  performance = {
+    max_view_entries = 12,
+  },
+
+  completion = {
+    completeopt = "menu,menuone",
   },
 }

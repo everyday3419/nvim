@@ -2,15 +2,17 @@ return {
   { lazy = true,             "nvim-lua/plenary.nvim" },
 
   {
-    "catppuccin/nvim",
+    "folke/tokyonight.nvim",
     config = function()
-      require("catppuccin").setup {
-        flavour = "mocha",
-        no_italic = true,
-        no_bold = false,
+      require("tokyonight").setup {
+        style = "night", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
+        styles = {
+          comments = { italic = false },
+          keywords = { italic = false },
+        },
       }
 
-      vim.cmd.colorscheme "catppuccin"
+      vim.cmd.colorscheme "tokyonight"
     end,
   },
 
@@ -34,6 +36,16 @@ return {
   },
 
   {
+    "nvim-treesitter/nvim-treesitter-context",
+    config = function()
+      require("treesitter-context").setup {
+        trim_scope = 'inner',
+        max_lines = 1,
+      }
+    end
+  },
+
+  {
     "nvim-tree/nvim-web-devicons",
     opts = {},
   },
@@ -46,19 +58,6 @@ return {
     end,
   },
 
-  -- {
-  --   "akinsho/bufferline.nvim",
-  --   event = "BufReadPre",
-  --   opts = require "plugins.configs.bufferline",
-  -- },
-
-  -- {
-  --   "echasnovski/mini.statusline",
-  --   config = function()
-  --     require("mini.statusline").setup { set_vim_settings = false }
-  --   end,
-  -- },
-
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
@@ -68,7 +67,7 @@ return {
           icons_enabled = true,
           component_separators = '|',
           section_separators = '',
-          theme = "catppuccin"
+          theme = "tokyonight",
         },
         sections = {
           lualine_a = {
@@ -142,17 +141,6 @@ return {
     lazy = false,
     opts = require "plugins.configs.conform",
   },
-
-  -- {
-  --   "lukas-reineke/indent-blankline.nvim",
-  --   event = { "BufReadPre", "BufNewFile" },
-  --   config = function()
-  --     require("ibl").setup {
-  --       indent = { char = "│" },
-  --       scope = { char = "│", highlight = "Comment" },
-  --     }
-  --   end,
-  -- },
 
   {
     "nvim-telescope/telescope.nvim",
@@ -244,12 +232,6 @@ return {
     opts = {},
   },
 
-  -- {
-  --   "mrcjkb/rustaceanvim",
-  --   version = "^5",
-  --   lazy = false,
-  -- },
-
   {
     "ojroques/nvim-bufdel",
     config = function()
@@ -312,28 +294,6 @@ return {
     end
   },
 
-  -- {
-  --   "Exafunction/codeium.vim",
-  --   lazy = false,
-  --   config = function()
-  --     vim.keymap.set("i", "<C-g>", function()
-  --       return vim.fn["codeium#Accept"]()
-  --     end, { expr = true, silent = true })
-  --     vim.keymap.set("i", "<c-;>", function()
-  --       return vim.fn["codeium#CycleCompletions"](1)
-  --     end, { expr = true, silent = true })
-  --     vim.keymap.set("i", "<c-,>", function()
-  --       return vim.fn["codeium#CycleCompletions"](-1)
-  --     end, { expr = true, silent = true })
-  --     vim.keymap.set("i", "<c-x>", function()
-  --       return vim.fn["codeium#Clear"]()
-  --     end, { expr = true, silent = true })
-  --     vim.keymap.set("n", "<leader>ce", function()
-  --       return vim.fn["codeium#Chat"]()
-  --     end, { expr = true, silent = true })
-  --   end,
-  -- },
-
   {
     "christoomey/vim-tmux-navigator",
     lazy = false,
@@ -360,38 +320,6 @@ return {
     event = { "CmdlineEnter" },
     ft = { "go", "gomod" },
     build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
-  },
-
-  {
-    "max397574/better-escape.nvim",
-    config = function()
-      -- lua, default settings
-      require("better_escape").setup {
-        timeout = vim.o.timeoutlen,
-        default_mappings = false,
-        mappings = {
-          i = {
-            j = {
-              j = "<Esc>",
-            },
-          },
-          c = {
-            j = {
-              j = "<Esc>",
-            },
-          },
-          t = {
-            j = {},
-          },
-          v = {
-            j = {},
-          },
-          s = {
-            j = {},
-          },
-        },
-      }
-    end,
   },
 
   {
@@ -448,4 +376,8 @@ return {
     version = '^5', -- Recommended
     lazy = false,   -- This plugin is already lazy
   },
+
+  {
+    "nacro90/numb.nvim"
+  }
 }
