@@ -15,14 +15,13 @@ map("n", "<m-h>", "<C-w>h", { desc = "Move to window on the left", noremap = tru
 map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
 
 -- Telescope
-map("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Find files" })
-map("n", "<leader>fo", "<cmd>Telescope oldfiles<CR>", { desc = "Open recent files" })
-map("n", "<leader>fw", "<cmd>Telescope live_grep<CR>", { desc = "Search text in workspace" })
-map("n", "<leader>gt", "<cmd>Telescope git_status<CR>", { desc = "Show Git status" })
-map("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "Show open buffers" })
+map("n", "<leader>f", "<cmd>Telescope find_files<CR>", { desc = "Find files" })
+map("n", "<leader>o", "<cmd>Telescope oldfiles<CR>", { desc = "Open recent files" })
+map("n", "<leader>'", "<cmd>Telescope live_grep<CR>", { desc = "Search text in workspace" })
+map("n", "<leader>b", "<cmd>Telescope buffers<CR>", { desc = "Show open buffers" })
 map(
   "n",
-  "<leader>fz",
+  "<leader>z",
   "<cmd>Telescope current_buffer_fuzzy_find previewer=true<CR>",
   { desc = "Search in current buffer with preview" }
 )

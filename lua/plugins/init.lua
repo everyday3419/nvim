@@ -1,18 +1,31 @@
 return {
   { lazy = true,             "nvim-lua/plenary.nvim" },
 
+  -- {
+  --   "folke/tokyonight.nvim",
+  --   config = function()
+  --     require("tokyonight").setup {
+  --       style = "night", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
+  --       styles = {
+  --         comments = { italic = false },
+  --         keywords = { italic = false },
+  --       },
+  --     }
+  --
+  --     vim.cmd.colorscheme "tokyonight"
+  --   end,
+  -- },
+
   {
-    "folke/tokyonight.nvim",
+    "catppuccin/nvim",
     config = function()
-      require("tokyonight").setup {
-        style = "night", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
-        styles = {
-          comments = { italic = false },
-          keywords = { italic = false },
-        },
+      require("catppuccin").setup {
+        flavour = "mocha",
+        no_italic = true,
+        no_bold = false,
       }
 
-      vim.cmd.colorscheme "tokyonight"
+      vim.cmd.colorscheme "catppuccin"
     end,
   },
 
@@ -59,20 +72,20 @@ return {
   },
 
   {
-    'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      require('lualine').setup {
+      require("lualine").setup {
         options = {
           icons_enabled = true,
-          component_separators = '|',
-          section_separators = '',
-          theme = "tokyonight",
+          component_separators = "|",
+          section_separators = "",
+          theme = "catppuccin",
         },
         sections = {
           lualine_a = {
             {
-              'buffers',
+              "buffers",
             }
           }
         }
@@ -157,7 +170,17 @@ return {
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
-    opts = {},
+    opts = {
+      preset = "helix",
+      spec = {
+        { "<leader>g", group = "Git" },
+        { "<leader>c", group = "LSP" },
+        { "<leader>w", group = "Windows" },
+      },
+      icons = {
+        rules = false
+      }
+    },
     keys = {
       {
         "<leader>?",

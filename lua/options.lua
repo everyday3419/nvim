@@ -40,7 +40,7 @@ o.sidescrolloff = 6
 
 vim.api.nvim_set_hl(0, "IndentLine", { link = "Comment" })
 
--- vim.o.guicursor = "n-v-c:block,i:block"
+vim.o.guicursor = "n-v-c:block,i:block"
 
 -- add binaries installed by mason.nvim to path
 local is_windows = vim.loop.os_uname().sysname == "Windows_NT"

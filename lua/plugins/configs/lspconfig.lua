@@ -27,7 +27,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
       { desc = "Go to declaration", buffer = ev.buf }
     )
     vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { desc = "Show signature help", buffer = ev.buf })
-    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename symbol", buffer = ev.buf })
     vim.keymap.set(
       "n",
       "<space>wa",
@@ -44,7 +43,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, { desc = "List workspace folders", buffer = ev.buf })
     vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, { desc = "Go to type definition", buffer = ev.buf })
-    vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, { desc = "Rename symbol", buffer = ev.buf })
+    vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename, { desc = "Rename symbol", buffer = ev.buf })
     vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, { desc = "Show code actions", buffer = ev.buf })
     vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Show references", buffer = ev.buf })
   end,
