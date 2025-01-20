@@ -1,26 +1,12 @@
 return {
   { lazy = true,             "nvim-lua/plenary.nvim" },
 
-  -- {
-  --   "folke/tokyonight.nvim",
-  --   config = function()
-  --     require("tokyonight").setup {
-  --       style = "night", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
-  --       styles = {
-  --         comments = { italic = false },
-  --         keywords = { italic = false },
-  --       },
-  --     }
-  --
-  --     vim.cmd.colorscheme "tokyonight"
-  --   end,
-  -- },
-
   {
     "catppuccin/nvim",
     config = function()
       require("catppuccin").setup {
         flavour = "mocha",
+        transparent_background = false,
         no_italic = true,
         no_bold = false,
       }
@@ -33,10 +19,36 @@ return {
     "nvim-tree/nvim-tree.lua",
     event = "VeryLazy",
     config = function()
+      local HEIGHT_RATIO = 0.8 -- You can change this
+      local WIDTH_RATIO = 0.5  -- You can change this too
       require("nvim-tree").setup {
         view = {
           relativenumber = true,
           adaptive_size = true,
+          float = {
+            enable = true,
+            open_win_config = function()
+              local screen_w = vim.opt.columns:get()
+              local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
+              local window_w = screen_w * WIDTH_RATIO
+              local window_h = screen_h * HEIGHT_RATIO
+              local window_w_int = math.floor(window_w)
+              local window_h_int = math.floor(window_h)
+              local center_x = (screen_w - window_w) / 2
+              local center_y = ((vim.opt.lines:get() - window_h) / 2 - vim.opt.cmdheight:get())
+              return {
+                border = 'rounded',
+                relative = 'editor',
+                row = center_y,
+                col = center_x,
+                width = window_w_int,
+                height = window_h_int,
+              }
+            end,
+          },
+          width = function()
+            return math.floor(vim.opt.columns:get() * WIDTH_RATIO)
+          end,
         },
         diagnostics = {
           enable = true,
@@ -62,6 +74,13 @@ return {
     "nvim-tree/nvim-web-devicons",
     opts = {},
   },
+
+  -- {
+  --   "echasnovski/mini.statusline",
+  --   config = function()
+  --     require("mini.statusline").setup { set_vim_settings = false }
+  --   end,
+  -- },
 
   {
     "nvim-treesitter/nvim-treesitter",
@@ -402,5 +421,15 @@ return {
 
   {
     "nacro90/numb.nvim"
+  },
+
+  {
+    'stevearc/aerial.nvim',
+    opts = {},
+    -- Optional dependencies
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons"
+    },
   }
 }
