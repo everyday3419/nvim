@@ -4,6 +4,7 @@ return {
     javascript = { "prettier" },
     typescript = { "prettierd" },
     go = { "goimports" },
+    python = { "ruff_format" },
   },
   format_on_save = {
     timeout_ms = 500,

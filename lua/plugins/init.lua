@@ -9,6 +9,13 @@ return {
         transparent_background = false,
         no_italic = true,
         no_bold = false,
+        color_overrides = {
+          mocha = {
+            base = "#000000",
+            mantle = "#000000",
+            crust = "#000000",
+          },
+        },
       }
 
       vim.cmd.colorscheme "catppuccin"
@@ -99,7 +106,6 @@ return {
           icons_enabled = true,
           component_separators = "|",
           section_separators = "",
-          theme = "catppuccin",
         },
         sections = {
           lualine_a = {

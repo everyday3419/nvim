@@ -128,6 +128,10 @@ lspconfig.prismals.setup {
   capabilities = capabilities,
 }
 
+lspconfig.pyright.setup {
+  capabilities = capabilities,
+}
+
 -- setup multiple servers with same default options
 local servers = { "html", "cssls" }
 
