@@ -1,24 +1,16 @@
 return {
-  { lazy = true,             "nvim-lua/plenary.nvim" },
+  { lazy = true, "nvim-lua/plenary.nvim" },
 
   {
-    "catppuccin/nvim",
+    "oonamo/ef-themes.nvim",
     config = function()
-      require("catppuccin").setup {
-        flavour = "mocha",
-        transparent_background = false,
-        no_italic = true,
-        no_bold = false,
-        color_overrides = {
-          mocha = {
-            base = "#000000",
-            mantle = "#000000",
-            crust = "#000000",
-          },
+      require("ef-themes").setup {
+        styles = {
+          comments = { italic = false },
+          keywords = { italic = false },
         },
       }
-
-      vim.cmd.colorscheme "catppuccin"
+      vim.cmd "colorscheme ef-autumn"
     end,
   },
 
@@ -27,7 +19,7 @@ return {
     event = "VeryLazy",
     config = function()
       local HEIGHT_RATIO = 0.8 -- You can change this
-      local WIDTH_RATIO = 0.5  -- You can change this too
+      local WIDTH_RATIO = 0.5 -- You can change this too
       require("nvim-tree").setup {
         view = {
           relativenumber = true,
@@ -44,8 +36,8 @@ return {
               local center_x = (screen_w - window_w) / 2
               local center_y = ((vim.opt.lines:get() - window_h) / 2 - vim.opt.cmdheight:get())
               return {
-                border = 'rounded',
-                relative = 'editor',
+                border = "rounded",
+                relative = "editor",
                 row = center_y,
                 col = center_x,
                 width = window_w_int,
@@ -71,10 +63,10 @@ return {
     "nvim-treesitter/nvim-treesitter-context",
     config = function()
       require("treesitter-context").setup {
-        trim_scope = 'inner',
+        trim_scope = "inner",
         max_lines = 1,
       }
-    end
+    end,
   },
 
   {
@@ -111,11 +103,11 @@ return {
           lualine_a = {
             {
               "buffers",
-            }
-          }
-        }
+            },
+          },
+        },
       }
-    end
+    end,
   },
 
   {
@@ -203,8 +195,8 @@ return {
         { "<leader>w", group = "Windows" },
       },
       icons = {
-        rules = false
-      }
+        rules = false,
+      },
     },
     keys = {
       {
@@ -297,7 +289,7 @@ return {
       -- "hrsh7th/nvim-cmp",
     },
     config = function()
-      require("codeium").setup({
+      require("codeium").setup {
         -- Optionally disable cmp source if using virtual text only
         enable_cmp_source = false,
         virtual_text = {
@@ -336,10 +328,10 @@ return {
             next = "<M-]>",
             -- Cycle to the previous completion.
             prev = "<M-[>",
-          }
-        }
-      })
-    end
+          },
+        },
+      }
+    end,
   },
 
   {
@@ -399,43 +391,68 @@ return {
         end,
         desc = "Open Yank History",
       },
-      { "y",     "<Plug>(YankyYank)",                      mode = { "n", "x" },                                desc = "Yank text" },
-      { "p",     "<Plug>(YankyPutAfter)",                  mode = { "n", "x" },                                desc = "Put yanked text after cursor" },
-      { "P",     "<Plug>(YankyPutBefore)",                 mode = { "n", "x" },                                desc = "Put yanked text before cursor" },
-      { "gp",    "<Plug>(YankyGPutAfter)",                 mode = { "n", "x" },                                desc = "Put yanked text after selection" },
-      { "gP",    "<Plug>(YankyGPutBefore)",                mode = { "n", "x" },                                desc = "Put yanked text before selection" },
-      { "<c-p>", "<Plug>(YankyPreviousEntry)",             desc = "Select previous entry through yank history" },
-      { "<c-n>", "<Plug>(YankyNextEntry)",                 desc = "Select next entry through yank history" },
-      { "]p",    "<Plug>(YankyPutIndentAfterLinewise)",    desc = "Put indented after cursor (linewise)" },
-      { "[p",    "<Plug>(YankyPutIndentBeforeLinewise)",   desc = "Put indented before cursor (linewise)" },
-      { "]P",    "<Plug>(YankyPutIndentAfterLinewise)",    desc = "Put indented after cursor (linewise)" },
-      { "[P",    "<Plug>(YankyPutIndentBeforeLinewise)",   desc = "Put indented before cursor (linewise)" },
-      { ">p",    "<Plug>(YankyPutIndentAfterShiftRight)",  desc = "Put and indent right" },
-      { "<p",    "<Plug>(YankyPutIndentAfterShiftLeft)",   desc = "Put and indent left" },
-      { ">P",    "<Plug>(YankyPutIndentBeforeShiftRight)", desc = "Put before and indent right" },
-      { "<P",    "<Plug>(YankyPutIndentBeforeShiftLeft)",  desc = "Put before and indent left" },
-      { "=p",    "<Plug>(YankyPutAfterFilter)",            desc = "Put after applying a filter" },
-      { "=P",    "<Plug>(YankyPutBeforeFilter)",           desc = "Put before applying a filter" },
+      {
+        "y",
+        "<Plug>(YankyYank)",
+        mode = { "n", "x" },
+        desc = "Yank text",
+      },
+      {
+        "p",
+        "<Plug>(YankyPutAfter)",
+        mode = { "n", "x" },
+        desc = "Put yanked text after cursor",
+      },
+      {
+        "P",
+        "<Plug>(YankyPutBefore)",
+        mode = { "n", "x" },
+        desc = "Put yanked text before cursor",
+      },
+      {
+        "gp",
+        "<Plug>(YankyGPutAfter)",
+        mode = { "n", "x" },
+        desc = "Put yanked text after selection",
+      },
+      {
+        "gP",
+        "<Plug>(YankyGPutBefore)",
+        mode = { "n", "x" },
+        desc = "Put yanked text before selection",
+      },
+      { "<c-p>", "<Plug>(YankyPreviousEntry)", desc = "Select previous entry through yank history" },
+      { "<c-n>", "<Plug>(YankyNextEntry)", desc = "Select next entry through yank history" },
+      { "]p", "<Plug>(YankyPutIndentAfterLinewise)", desc = "Put indented after cursor (linewise)" },
+      { "[p", "<Plug>(YankyPutIndentBeforeLinewise)", desc = "Put indented before cursor (linewise)" },
+      { "]P", "<Plug>(YankyPutIndentAfterLinewise)", desc = "Put indented after cursor (linewise)" },
+      { "[P", "<Plug>(YankyPutIndentBeforeLinewise)", desc = "Put indented before cursor (linewise)" },
+      { ">p", "<Plug>(YankyPutIndentAfterShiftRight)", desc = "Put and indent right" },
+      { "<p", "<Plug>(YankyPutIndentAfterShiftLeft)", desc = "Put and indent left" },
+      { ">P", "<Plug>(YankyPutIndentBeforeShiftRight)", desc = "Put before and indent right" },
+      { "<P", "<Plug>(YankyPutIndentBeforeShiftLeft)", desc = "Put before and indent left" },
+      { "=p", "<Plug>(YankyPutAfterFilter)", desc = "Put after applying a filter" },
+      { "=P", "<Plug>(YankyPutBeforeFilter)", desc = "Put before applying a filter" },
     },
   },
 
   {
-    'mrcjkb/rustaceanvim',
-    version = '^5', -- Recommended
-    lazy = false,   -- This plugin is already lazy
+    "mrcjkb/rustaceanvim",
+    version = "^5", -- Recommended
+    lazy = false, -- This plugin is already lazy
   },
 
   {
-    "nacro90/numb.nvim"
+    "nacro90/numb.nvim",
   },
 
   {
-    'stevearc/aerial.nvim',
+    "stevearc/aerial.nvim",
     opts = {},
     -- Optional dependencies
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons"
+      "nvim-tree/nvim-web-devicons",
     },
-  }
+  },
 }
