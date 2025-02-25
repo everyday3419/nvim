@@ -5,6 +5,7 @@ map("n", "<C-s>", "<cmd>w<CR>", { desc = "Save current buffer" })
 map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "Copy entire file to clipboard" })
 
 map("n", "<m-j>", "<C-w>j", { desc = "Move to window below", noremap = true, silent = true })
+map("n", "<m-n>", "<cmd>nohlsearch<CR>")
 
 -- General window navigation
 map("n", "<m-k>", "<C-w>k", { desc = "Move to window above", noremap = true, silent = true })
@@ -29,6 +30,7 @@ map(
 -- Bufferline, cycle buffers
 map("n", "<Tab>", "<cmd>bnext<CR>", { desc = "Next buffer" })
 map("n", "<S-Tab>", "<cmd>bprev<CR>", { desc = "Previous buffer" })
+map("n", "<m-x>", "<cmd>:q<CR>", { desc = "Close current buffer" })
 map("n", "<leader>x", "<cmd>BufDel<CR>", { desc = "Close current buffer" })
 
 -- Comment.nvim

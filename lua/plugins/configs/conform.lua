@@ -5,6 +5,7 @@ return {
     typescript = { "prettierd" },
     go = { "goimports" },
     python = { "ruff_format" },
+    solidity = { "prettier", "prettierd" },
   },
   format_on_save = {
     timeout_ms = 500,
