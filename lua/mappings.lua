@@ -39,3 +39,6 @@ map("v", "<leader>/", "gc", { desc = "Toggle selection comment", remap = true })
 
 -- Neogit
 map("n", "<leader>gg", "<cmd>Neogit<CR>", { desc = "Open Neogit" })
+
+-- Aerial
+map("n", "<leader>ar", "<cmd>AerialToggle<CR>", { desc = "Toggle Aerial" })

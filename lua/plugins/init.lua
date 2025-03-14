@@ -8,12 +8,13 @@ return {
         flavour = "mocha",
         no_italic = true,
         no_bold = false,
+        transparent_background = false,
         color_overrides = {
-          mocha = {
-            base = "#000000",
-            mantle = "#000000",
-            crust = "#000000",
-          },
+          -- mocha = {
+          --   base = "#000000",
+          --   mantle = "#000000",
+          --   crust = "#000000",
+          -- },
         },
       }
 
@@ -30,6 +31,10 @@ return {
   --         keywords = { bold = false },
   --         classes = { bold = false },
   --         types = { bold = false },
+  --         functions = { bold = false },
+  --         variables = { bold = false },
+  --         constants = { bold = false },
+  --         strings = { italic = false },
   --       },
   --     }
   --
@@ -283,7 +288,7 @@ return {
 
   {
     "saecki/crates.nvim",
-    event = { "BufRead Cargo.toml" },
+    tag = "stable",
     config = function()
       require("crates").setup()
     end,
@@ -305,57 +310,57 @@ return {
     end,
   },
 
-  {
-    "Exafunction/codeium.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      -- "hrsh7th/nvim-cmp",
-    },
-    config = function()
-      require("codeium").setup {
-        -- Optionally disable cmp source if using virtual text only
-        enable_cmp_source = false,
-        virtual_text = {
-          enabled = true,
-
-          -- These are the defaults
-
-          -- Set to true if you never want completions to be shown automatically.
-          manual = false,
-          -- A mapping of filetype to true or false, to enable virtual text.
-          filetypes = {},
-          -- Whether to enable virtual text of not for filetypes not specifically listed above.
-          default_filetype_enabled = true,
-          -- How long to wait (in ms) before requesting completions after typing stops.
-          idle_delay = 75,
-          -- Priority of the virtual text. This usually ensures that the completions appear on top of
-          -- other plugins that also add virtual text, such as LSP inlay hints, but can be modified if
-          -- desired.
-          virtual_text_priority = 65535,
-          -- Set to false to disable all key bindings for managing completions.
-          map_keys = true,
-          -- The key to press when hitting the accept keybinding but no completion is showing.
-          -- Defaults to \t normally or <c-n> when a popup is showing.
-          accept_fallback = nil,
-          -- Key bindings for managing completions in virtual text mode.
-          key_bindings = {
-            -- Accept the current completion.
-            accept = "<Tab>",
-            -- Accept the next word.
-            accept_word = false,
-            -- Accept the next line.
-            accept_line = false,
-            -- Clear the virtual text.
-            clear = false,
-            -- Cycle to the next completion.
-            next = "<M-]>",
-            -- Cycle to the previous completion.
-            prev = "<M-[>",
-          },
-        },
-      }
-    end,
-  },
+  -- {
+  --   "Exafunction/codeium.nvim",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     -- "hrsh7th/nvim-cmp",
+  --   },
+  --   config = function()
+  --     require("codeium").setup {
+  --       -- Optionally disable cmp source if using virtual text only
+  --       enable_cmp_source = false,
+  --       virtual_text = {
+  --         enabled = true,
+  --
+  --         -- These are the defaults
+  --
+  --         -- Set to true if you never want completions to be shown automatically.
+  --         manual = false,
+  --         -- A mapping of filetype to true or false, to enable virtual text.
+  --         filetypes = {},
+  --         -- Whether to enable virtual text of not for filetypes not specifically listed above.
+  --         default_filetype_enabled = true,
+  --         -- How long to wait (in ms) before requesting completions after typing stops.
+  --         idle_delay = 75,
+  --         -- Priority of the virtual text. This usually ensures that the completions appear on top of
+  --         -- other plugins that also add virtual text, such as LSP inlay hints, but can be modified if
+  --         -- desired.
+  --         virtual_text_priority = 65535,
+  --         -- Set to false to disable all key bindings for managing completions.
+  --         map_keys = true,
+  --         -- The key to press when hitting the accept keybinding but no completion is showing.
+  --         -- Defaults to \t normally or <c-n> when a popup is showing.
+  --         accept_fallback = nil,
+  --         -- Key bindings for managing completions in virtual text mode.
+  --         key_bindings = {
+  --           -- Accept the current completion.
+  --           accept = "<Tab>",
+  --           -- Accept the next word.
+  --           accept_word = false,
+  --           -- Accept the next line.
+  --           accept_line = false,
+  --           -- Clear the virtual text.
+  --           clear = false,
+  --           -- Cycle to the next completion.
+  --           next = "<M-]>",
+  --           -- Cycle to the previous completion.
+  --           prev = "<M-[>",
+  --         },
+  --       },
+  --     }
+  --   end,
+  -- },
 
   {
     "christoomey/vim-tmux-navigator",
@@ -479,133 +484,133 @@ return {
     },
   },
 
-  {
-    "jake-stewart/multicursor.nvim",
-    branch = "1.0",
-    config = function()
-      local mc = require "multicursor-nvim"
-
-      mc.setup()
-
-      local set = vim.keymap.set
-
-      -- Add or skip cursor above/below the main cursor.
-      set({ "n", "x" }, "<up>", function()
-        mc.lineAddCursor(-1)
-      end)
-      set({ "n", "x" }, "<down>", function()
-        mc.lineAddCursor(1)
-      end)
-      set({ "n", "x" }, "<leader><up>", function()
-        mc.lineSkipCursor(-1)
-      end)
-      set({ "n", "x" }, "<leader><down>", function()
-        mc.lineSkipCursor(1)
-      end)
-
-      -- Add or skip adding a new cursor by matching word/selection
-      set({ "n", "x" }, "<leader>n", function()
-        mc.matchAddCursor(1)
-      end)
-      set({ "n", "x" }, "<leader>s", function()
-        mc.matchSkipCursor(1)
-      end)
-      set({ "n", "x" }, "<leader>N", function()
-        mc.matchAddCursor(-1)
-      end)
-      set({ "n", "x" }, "<leader>S", function()
-        mc.matchSkipCursor(-1)
-      end)
-
-      -- In normal/visual mode, press `mwap` will create a cursor in every match of
-      -- the word captured by `iw` (or visually selected range) inside the bigger
-      -- range specified by `ap`. Useful to replace a word inside a function, e.g. mwif.
-      set({ "n", "x" }, "mw", function()
-        mc.operator { motion = "iw", visual = true }
-        -- Or you can pass a pattern, press `mwi{` will select every \w,
-        -- basically every char in a `{ a, b, c, d }`.
-        -- mc.operator({ pattern = [[\<\w]] })
-      end)
-
-      -- Press `mWi"ap` will create a cursor in every match of string captured by `i"` inside range `ap`.
-      set("n", "mW", mc.operator)
-
-      -- Add all matches in the document
-      set({ "n", "x" }, "<leader>A", mc.matchAllAddCursors)
-
-      -- You can also add cursors with any motion you prefer:
-      -- set("n", "<right>", function()
-      --     mc.addCursor("w")
-      -- end)
-      -- set("n", "<leader><right>", function()
-      --     mc.skipCursor("w")
-      -- end)
-
-      -- Rotate the main cursor.
-      set({ "n", "x" }, "<left>", mc.nextCursor)
-      set({ "n", "x" }, "<right>", mc.prevCursor)
-
-      -- Delete the main cursor.
-      set({ "n", "x" }, "<leader>x", mc.deleteCursor)
-
-      -- Add and remove cursors with control + left click.
-      set("n", "<c-leftmouse>", mc.handleMouse)
-      set("n", "<c-leftdrag>", mc.handleMouseDrag)
-      set("n", "<c-leftrelease>", mc.handleMouseRelease)
-
-      -- Easy way to add and remove cursors using the main cursor.
-      set({ "n", "x" }, "<c-q>", mc.toggleCursor)
-
-      -- Clone every cursor and disable the originals.
-      set({ "n", "x" }, "<leader><c-q>", mc.duplicateCursors)
-
-      set("n", "<esc>", function()
-        if not mc.cursorsEnabled() then
-          mc.enableCursors()
-        elseif mc.hasCursors() then
-          mc.clearCursors()
-        else
-          -- Default <esc> handler.
-        end
-      end)
-
-      -- bring back cursors if you accidentally clear them
-      set("n", "<leader>gv", mc.restoreCursors)
-
-      -- Align cursor columns.
-      set("n", "<leader>a", mc.alignCursors)
-
-      -- Split visual selections by regex.
-      set("x", "S", mc.splitCursors)
-
-      -- Append/insert for each line of visual selections.
-      set("x", "I", mc.insertVisual)
-      set("x", "A", mc.appendVisual)
-
-      -- match new cursors within visual selections by regex.
-      set("x", "M", mc.matchCursors)
-
-      -- Rotate visual selection contents.
-      set("x", "<leader>t", function()
-        mc.transposeCursors(1)
-      end)
-      set("x", "<leader>T", function()
-        mc.transposeCursors(-1)
-      end)
-
-      -- Jumplist support
-      set({ "x", "n" }, "<c-i>", mc.jumpForward)
-      set({ "x", "n" }, "<c-o>", mc.jumpBackward)
-
-      -- Customize how cursors look.
-      local hl = vim.api.nvim_set_hl
-      hl(0, "MultiCursorCursor", { link = "Cursor" })
-      hl(0, "MultiCursorVisual", { link = "Visual" })
-      hl(0, "MultiCursorSign", { link = "SignColumn" })
-      hl(0, "MultiCursorMatchPreview", { link = "Search" })
-      hl(0, "MultiCursorDisabledCursor", { link = "Visual" })
-      hl(0, "MultiCursorDisabledVisual", { link = "Visual" })
-      hl(0, "MultiCursorDisabledSign", { link = "SignColumn" })
-    end,
-  },
+  -- {
+  --   "jake-stewart/multicursor.nvim",
+  --   branch = "1.0",
+  --   config = function()
+  --     local mc = require "multicursor-nvim"
+  --
+  --     mc.setup()
+  --
+  --     local set = vim.keymap.set
+  --
+  --     -- Add or skip cursor above/below the main cursor.
+  --     set({ "n", "x" }, "<up>", function()
+  --       mc.lineAddCursor(-1)
+  --     end)
+  --     set({ "n", "x" }, "<down>", function()
+  --       mc.lineAddCursor(1)
+  --     end)
+  --     set({ "n", "x" }, "<leader><up>", function()
+  --       mc.lineSkipCursor(-1)
+  --     end)
+  --     set({ "n", "x" }, "<leader><down>", function()
+  --       mc.lineSkipCursor(1)
+  --     end)
+  --
+  --     -- Add or skip adding a new cursor by matching word/selection
+  --     set({ "n", "x" }, "<leader>n", function()
+  --       mc.matchAddCursor(1)
+  --     end)
+  --     set({ "n", "x" }, "<leader>s", function()
+  --       mc.matchSkipCursor(1)
+  --     end)
+  --     set({ "n", "x" }, "<leader>N", function()
+  --       mc.matchAddCursor(-1)
+  --     end)
+  --     set({ "n", "x" }, "<leader>S", function()
+  --       mc.matchSkipCursor(-1)
+  --     end)
+  --
+  --     -- In normal/visual mode, press `mwap` will create a cursor in every match of
+  --     -- the word captured by `iw` (or visually selected range) inside the bigger
+  --     -- range specified by `ap`. Useful to replace a word inside a function, e.g. mwif.
+  --     set({ "n", "x" }, "mw", function()
+  --       mc.operator { motion = "iw", visual = true }
+  --       -- Or you can pass a pattern, press `mwi{` will select every \w,
+  --       -- basically every char in a `{ a, b, c, d }`.
+  --       -- mc.operator({ pattern = [[\<\w]] })
+  --     end)
+  --
+  --     -- Press `mWi"ap` will create a cursor in every match of string captured by `i"` inside range `ap`.
+  --     set("n", "mW", mc.operator)
+  --
+  --     -- Add all matches in the document
+  --     set({ "n", "x" }, "<leader>A", mc.matchAllAddCursors)
+  --
+  --     -- You can also add cursors with any motion you prefer:
+  --     -- set("n", "<right>", function()
+  --     --     mc.addCursor("w")
+  --     -- end)
+  --     -- set("n", "<leader><right>", function()
+  --     --     mc.skipCursor("w")
+  --     -- end)
+  --
+  --     -- Rotate the main cursor.
+  --     set({ "n", "x" }, "<left>", mc.nextCursor)
+  --     set({ "n", "x" }, "<right>", mc.prevCursor)
+  --
+  --     -- Delete the main cursor.
+  --     set({ "n", "x" }, "<leader>x", mc.deleteCursor)
+  --
+  --     -- Add and remove cursors with control + left click.
+  --     set("n", "<c-leftmouse>", mc.handleMouse)
+  --     set("n", "<c-leftdrag>", mc.handleMouseDrag)
+  --     set("n", "<c-leftrelease>", mc.handleMouseRelease)
+  --
+  --     -- Easy way to add and remove cursors using the main cursor.
+  --     set({ "n", "x" }, "<c-q>", mc.toggleCursor)
+  --
+  --     -- Clone every cursor and disable the originals.
+  --     set({ "n", "x" }, "<leader><c-q>", mc.duplicateCursors)
+  --
+  --     set("n", "<esc>", function()
+  --       if not mc.cursorsEnabled() then
+  --         mc.enableCursors()
+  --       elseif mc.hasCursors() then
+  --         mc.clearCursors()
+  --       else
+  --         -- Default <esc> handler.
+  --       end
+  --     end)
+  --
+  --     -- bring back cursors if you accidentally clear them
+  --     set("n", "<leader>gv", mc.restoreCursors)
+  --
+  --     -- Align cursor columns.
+  --     set("n", "<leader>a", mc.alignCursors)
+  --
+  --     -- Split visual selections by regex.
+  --     set("x", "S", mc.splitCursors)
+  --
+  --     -- Append/insert for each line of visual selections.
+  --     set("x", "I", mc.insertVisual)
+  --     set("x", "A", mc.appendVisual)
+  --
+  --     -- match new cursors within visual selections by regex.
+  --     set("x", "M", mc.matchCursors)
+  --
+  --     -- Rotate visual selection contents.
+  --     set("x", "<leader>t", function()
+  --       mc.transposeCursors(1)
+  --     end)
+  --     set("x", "<leader>T", function()
+  --       mc.transposeCursors(-1)
+  --     end)
+  --
+  --     -- Jumplist support
+  --     set({ "x", "n" }, "<c-i>", mc.jumpForward)
+  --     set({ "x", "n" }, "<c-o>", mc.jumpBackward)
+  --
+  --     -- Customize how cursors look.
+  --     local hl = vim.api.nvim_set_hl
+  --     hl(0, "MultiCursorCursor", { link = "Cursor" })
+  --     hl(0, "MultiCursorVisual", { link = "Visual" })
+  --     hl(0, "MultiCursorSign", { link = "SignColumn" })
+  --     hl(0, "MultiCursorMatchPreview", { link = "Search" })
+  --     hl(0, "MultiCursorDisabledCursor", { link = "Visual" })
+  --     hl(0, "MultiCursorDisabledVisual", { link = "Visual" })
+  --     hl(0, "MultiCursorDisabledSign", { link = "SignColumn" })
+  --   end,
+  -- },
 }

@@ -136,6 +136,10 @@ lspconfig.solidity_ls.setup {
   capabilities = capabilities,
 }
 
+lspconfig.buf_ls.setup {
+  capabilities = capabilities,
+}
+
 -- setup multiple servers with same default options
 local servers = { "html", "cssls" }
 

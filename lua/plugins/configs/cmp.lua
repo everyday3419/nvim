@@ -46,7 +46,7 @@ return {
     { name = "buffer" },
     { name = "luasnip" },
     { name = "nvim_lua" },
-    -- { name = "codeium" }
+    -- { name = "codeium" },
   },
 
   performance = {
