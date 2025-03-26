@@ -2,6 +2,11 @@ return {
   { lazy = true, "nvim-lua/plenary.nvim" },
 
   {
+    "echasnovski/mini.bufremove",
+    version = false,
+  },
+
+  {
     "catppuccin/nvim",
     config = function()
       require("catppuccin").setup {
@@ -9,93 +14,96 @@ return {
         no_italic = true,
         no_bold = false,
         transparent_background = false,
-        color_overrides = {
-          -- mocha = {
-          --   base = "#000000",
-          --   mantle = "#000000",
-          --   crust = "#000000",
-          -- },
-        },
+        -- color_overrides = {
+        --   mocha = {
+        --     base = "#000000",
+        --     mantle = "#000000",
+        --     crust = "#000000",
+        --   },
+        -- },
       }
 
       vim.cmd.colorscheme "catppuccin"
     end,
   },
 
+  {
+    "nvim-telescope/telescope-file-browser.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+    config = function()
+      require("telescope").setup {
+        extensions = {
+          file_browser = {
+            theme = "ivy",
+            hijack_netrw = true,
+            grouped = true,
+            hidden = { file_browser = true, folder_browser = true },
+            dir_icon = "",
+            previewer = false,
+            mappings = {
+              ["i"] = {
+                -- your custom insert mode mappings
+                ["<C-o>"] = require("telescope.actions").select_default,
+              },
+              ["n"] = {
+                -- your custom normal mode mappings
+              },
+            },
+          },
+        },
+      }
+      require("telescope").load_extension "file_browser"
+
+      vim.keymap.set("n", "<leader>e", function()
+        require("telescope").extensions.file_browser.file_browser()
+      end)
+    end,
+  },
+
   -- {
-  --   "oonamo/ef-themes.nvim",
+  --   "nvim-tree/nvim-tree.lua",
+  --   event = "VeryLazy",
   --   config = function()
-  --     require("ef-themes").setup {
-  --       styles = {
-  --         comments = { italic = false },
-  --         keywords = { bold = false },
-  --         classes = { bold = false },
-  --         types = { bold = false },
-  --         functions = { bold = false },
-  --         variables = { bold = false },
-  --         constants = { bold = false },
-  --         strings = { italic = false },
+  --     local HEIGHT_RATIO = 0.8 -- You can change this
+  --     local WIDTH_RATIO = 0.5 -- You can change this too
+  --     require("nvim-tree").setup {
+  --       view = {
+  --         relativenumber = true,
+  --         adaptive_size = true,
+  --         float = {
+  --           enable = true,
+  --           open_win_config = function()
+  --             local screen_w = vim.opt.columns:get()
+  --             local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
+  --             local window_w = screen_w * WIDTH_RATIO
+  --             local window_h = screen_h * HEIGHT_RATIO
+  --             local window_w_int = math.floor(window_w)
+  --             local window_h_int = math.floor(window_h)
+  --             local center_x = (screen_w - window_w) / 2
+  --             local center_y = ((vim.opt.lines:get() - window_h) / 2 - vim.opt.cmdheight:get())
+  --             return {
+  --               border = "rounded",
+  --               relative = "editor",
+  --               row = center_y,
+  --               col = center_x,
+  --               width = window_w_int,
+  --               height = window_h_int,
+  --             }
+  --           end,
+  --         },
+  --         width = function()
+  --           return math.floor(vim.opt.columns:get() * WIDTH_RATIO)
+  --         end,
+  --       },
+  --       diagnostics = {
+  --         enable = true,
+  --       },
+  --       git = {
+  --         ignore = false,
   --       },
   --     }
-  --
-  --     vim.cmd "colorscheme ef-autumn"
   --   end,
   -- },
-
-  {
-    "nvim-tree/nvim-tree.lua",
-    event = "VeryLazy",
-    config = function()
-      local HEIGHT_RATIO = 0.8 -- You can change this
-      local WIDTH_RATIO = 0.5 -- You can change this too
-      require("nvim-tree").setup {
-        view = {
-          relativenumber = true,
-          adaptive_size = true,
-          float = {
-            enable = true,
-            open_win_config = function()
-              local screen_w = vim.opt.columns:get()
-              local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
-              local window_w = screen_w * WIDTH_RATIO
-              local window_h = screen_h * HEIGHT_RATIO
-              local window_w_int = math.floor(window_w)
-              local window_h_int = math.floor(window_h)
-              local center_x = (screen_w - window_w) / 2
-              local center_y = ((vim.opt.lines:get() - window_h) / 2 - vim.opt.cmdheight:get())
-              return {
-                border = "rounded",
-                relative = "editor",
-                row = center_y,
-                col = center_x,
-                width = window_w_int,
-                height = window_h_int,
-              }
-            end,
-          },
-          width = function()
-            return math.floor(vim.opt.columns:get() * WIDTH_RATIO)
-          end,
-        },
-        diagnostics = {
-          enable = true,
-        },
-        git = {
-          ignore = false,
-        },
-      }
-    end,
-  },
-
-  {
-    "nvim-treesitter/nvim-treesitter-context",
-    config = function()
-      require("treesitter-context").setup {
-        trim_scope = "inner",
-        max_lines = 1,
-      }
-    end,
-  },
 
   {
     "nvim-tree/nvim-web-devicons",
@@ -130,9 +138,17 @@ return {
         sections = {
           lualine_a = {
             {
-              "buffers",
+              "mode",
+              fmt = function(res)
+                return res:sub(1, 1)
+              end,
             },
           },
+          lualine_b = { "branch", "diagnostics" },
+          lualine_c = { "filename" },
+          lualine_x = {},
+          lualine_y = { "progress" },
+          lualine_z = { "location" },
         },
       }
     end,
@@ -300,16 +316,6 @@ return {
     opts = {},
   },
 
-  {
-    "ojroques/nvim-bufdel",
-    config = function()
-      require("bufdel").setup {
-        next = "tabs",
-        quit = false,
-      }
-    end,
-  },
-
   -- {
   --   "Exafunction/codeium.nvim",
   --   dependencies = {
@@ -471,146 +477,19 @@ return {
   },
 
   {
-    "nacro90/numb.nvim",
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      require("colorizer").setup()
+    end,
   },
 
   {
-    "stevearc/aerial.nvim",
-    opts = {},
-    -- Optional dependencies
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons",
-    },
-  },
+    "hedyhli/outline.nvim",
+    config = function()
+      -- Example mapping to toggle outline
+      vim.keymap.set("n", "<leader>co", "<cmd>Outline<CR>", { desc = "Toggle Outline" })
 
-  -- {
-  --   "jake-stewart/multicursor.nvim",
-  --   branch = "1.0",
-  --   config = function()
-  --     local mc = require "multicursor-nvim"
-  --
-  --     mc.setup()
-  --
-  --     local set = vim.keymap.set
-  --
-  --     -- Add or skip cursor above/below the main cursor.
-  --     set({ "n", "x" }, "<up>", function()
-  --       mc.lineAddCursor(-1)
-  --     end)
-  --     set({ "n", "x" }, "<down>", function()
-  --       mc.lineAddCursor(1)
-  --     end)
-  --     set({ "n", "x" }, "<leader><up>", function()
-  --       mc.lineSkipCursor(-1)
-  --     end)
-  --     set({ "n", "x" }, "<leader><down>", function()
-  --       mc.lineSkipCursor(1)
-  --     end)
-  --
-  --     -- Add or skip adding a new cursor by matching word/selection
-  --     set({ "n", "x" }, "<leader>n", function()
-  --       mc.matchAddCursor(1)
-  --     end)
-  --     set({ "n", "x" }, "<leader>s", function()
-  --       mc.matchSkipCursor(1)
-  --     end)
-  --     set({ "n", "x" }, "<leader>N", function()
-  --       mc.matchAddCursor(-1)
-  --     end)
-  --     set({ "n", "x" }, "<leader>S", function()
-  --       mc.matchSkipCursor(-1)
-  --     end)
-  --
-  --     -- In normal/visual mode, press `mwap` will create a cursor in every match of
-  --     -- the word captured by `iw` (or visually selected range) inside the bigger
-  --     -- range specified by `ap`. Useful to replace a word inside a function, e.g. mwif.
-  --     set({ "n", "x" }, "mw", function()
-  --       mc.operator { motion = "iw", visual = true }
-  --       -- Or you can pass a pattern, press `mwi{` will select every \w,
-  --       -- basically every char in a `{ a, b, c, d }`.
-  --       -- mc.operator({ pattern = [[\<\w]] })
-  --     end)
-  --
-  --     -- Press `mWi"ap` will create a cursor in every match of string captured by `i"` inside range `ap`.
-  --     set("n", "mW", mc.operator)
-  --
-  --     -- Add all matches in the document
-  --     set({ "n", "x" }, "<leader>A", mc.matchAllAddCursors)
-  --
-  --     -- You can also add cursors with any motion you prefer:
-  --     -- set("n", "<right>", function()
-  --     --     mc.addCursor("w")
-  --     -- end)
-  --     -- set("n", "<leader><right>", function()
-  --     --     mc.skipCursor("w")
-  --     -- end)
-  --
-  --     -- Rotate the main cursor.
-  --     set({ "n", "x" }, "<left>", mc.nextCursor)
-  --     set({ "n", "x" }, "<right>", mc.prevCursor)
-  --
-  --     -- Delete the main cursor.
-  --     set({ "n", "x" }, "<leader>x", mc.deleteCursor)
-  --
-  --     -- Add and remove cursors with control + left click.
-  --     set("n", "<c-leftmouse>", mc.handleMouse)
-  --     set("n", "<c-leftdrag>", mc.handleMouseDrag)
-  --     set("n", "<c-leftrelease>", mc.handleMouseRelease)
-  --
-  --     -- Easy way to add and remove cursors using the main cursor.
-  --     set({ "n", "x" }, "<c-q>", mc.toggleCursor)
-  --
-  --     -- Clone every cursor and disable the originals.
-  --     set({ "n", "x" }, "<leader><c-q>", mc.duplicateCursors)
-  --
-  --     set("n", "<esc>", function()
-  --       if not mc.cursorsEnabled() then
-  --         mc.enableCursors()
-  --       elseif mc.hasCursors() then
-  --         mc.clearCursors()
-  --       else
-  --         -- Default <esc> handler.
-  --       end
-  --     end)
-  --
-  --     -- bring back cursors if you accidentally clear them
-  --     set("n", "<leader>gv", mc.restoreCursors)
-  --
-  --     -- Align cursor columns.
-  --     set("n", "<leader>a", mc.alignCursors)
-  --
-  --     -- Split visual selections by regex.
-  --     set("x", "S", mc.splitCursors)
-  --
-  --     -- Append/insert for each line of visual selections.
-  --     set("x", "I", mc.insertVisual)
-  --     set("x", "A", mc.appendVisual)
-  --
-  --     -- match new cursors within visual selections by regex.
-  --     set("x", "M", mc.matchCursors)
-  --
-  --     -- Rotate visual selection contents.
-  --     set("x", "<leader>t", function()
-  --       mc.transposeCursors(1)
-  --     end)
-  --     set("x", "<leader>T", function()
-  --       mc.transposeCursors(-1)
-  --     end)
-  --
-  --     -- Jumplist support
-  --     set({ "x", "n" }, "<c-i>", mc.jumpForward)
-  --     set({ "x", "n" }, "<c-o>", mc.jumpBackward)
-  --
-  --     -- Customize how cursors look.
-  --     local hl = vim.api.nvim_set_hl
-  --     hl(0, "MultiCursorCursor", { link = "Cursor" })
-  --     hl(0, "MultiCursorVisual", { link = "Visual" })
-  --     hl(0, "MultiCursorSign", { link = "SignColumn" })
-  --     hl(0, "MultiCursorMatchPreview", { link = "Search" })
-  --     hl(0, "MultiCursorDisabledCursor", { link = "Visual" })
-  --     hl(0, "MultiCursorDisabledVisual", { link = "Visual" })
-  --     hl(0, "MultiCursorDisabledSign", { link = "SignColumn" })
-  --   end,
-  -- },
+      require("outline").setup {}
+    end,
+  },
 }

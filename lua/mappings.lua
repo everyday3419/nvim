@@ -5,7 +5,7 @@ map("n", "<C-s>", "<cmd>w<CR>", { desc = "Save current buffer" })
 map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "Copy entire file to clipboard" })
 
 map("n", "<m-j>", "<C-w>j", { desc = "Move to window below", noremap = true, silent = true })
-map("n", "<m-n>", "<cmd>nohlsearch<CR>")
+map("n", "<m-o", "<cmd>nohlsearch<CR>")
 
 -- General window navigation
 map("n", "<m-k>", "<C-w>k", { desc = "Move to window above", noremap = true, silent = true })
@@ -31,7 +31,6 @@ map(
 map("n", "<Tab>", "<cmd>bnext<CR>", { desc = "Next buffer" })
 map("n", "<S-Tab>", "<cmd>bprev<CR>", { desc = "Previous buffer" })
 map("n", "<m-x>", "<cmd>:q<CR>", { desc = "Close current buffer" })
-map("n", "<leader>x", "<cmd>BufDel<CR>", { desc = "Close current buffer" })
 
 -- Comment.nvim
 map("n", "<leader>/", "gcc", { desc = "Toggle line comment", remap = true })
@@ -40,5 +39,7 @@ map("v", "<leader>/", "gc", { desc = "Toggle selection comment", remap = true })
 -- Neogit
 map("n", "<leader>gg", "<cmd>Neogit<CR>", { desc = "Open Neogit" })
 
--- Aerial
-map("n", "<leader>ar", "<cmd>AerialToggle<CR>", { desc = "Toggle Aerial" })
+-- mini
+map("n", "<leader>x", function()
+  require("mini.bufremove").delete()
+end, { desc = "Close current buffer" })
