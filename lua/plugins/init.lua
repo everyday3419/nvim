@@ -31,6 +31,7 @@ return {
     "nvim-telescope/telescope-file-browser.nvim",
     dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
     config = function()
+      local fb_actions = require("telescope").extensions.file_browser.actions
       require("telescope").setup {
         extensions = {
           file_browser = {
@@ -40,13 +41,19 @@ return {
             hidden = { file_browser = true, folder_browser = true },
             dir_icon = "",
             previewer = false,
+            initial_mode = "normal",
             mappings = {
               ["i"] = {
-                -- your custom insert mode mappings
                 ["<C-o>"] = require("telescope.actions").select_default,
               },
               ["n"] = {
-                -- your custom normal mode mappings
+                ["o"] = require("telescope.actions").select_default,
+                ["<bs>"] = fb_actions.backspace,
+                ["<m-c>"] = fb_actions.create,
+                ["<m-r>"] = fb_actions.rename,
+                ["<m-d>"] = fb_actions.remove,
+                ["<m-y>"] = fb_actions.copy,
+                ["<m-m>"] = fb_actions.move,
               },
             },
           },
@@ -54,9 +61,11 @@ return {
       }
       require("telescope").load_extension "file_browser"
 
-      vim.keymap.set("n", "<leader>e", function()
-        require("telescope").extensions.file_browser.file_browser()
-      end)
+      vim.keymap.set("n", "<leader>e", ":Telescope file_browser path=%:p:h select_buffer=true<CR>")
+
+      -- vim.keymap.set("n", "<leader>e", function()
+      --   require("telescope").extensions.file_browser.file_browser()
+      -- end)
     end,
   },
 
@@ -144,7 +153,7 @@ return {
               end,
             },
           },
-          lualine_b = { "branch", "diagnostics" },
+          lualine_b = { "diagnostics" },
           lualine_c = { "filename" },
           lualine_x = {},
           lualine_y = { "progress" },
@@ -316,57 +325,57 @@ return {
     opts = {},
   },
 
-  -- {
-  --   "Exafunction/codeium.nvim",
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim",
-  --     -- "hrsh7th/nvim-cmp",
-  --   },
-  --   config = function()
-  --     require("codeium").setup {
-  --       -- Optionally disable cmp source if using virtual text only
-  --       enable_cmp_source = false,
-  --       virtual_text = {
-  --         enabled = true,
-  --
-  --         -- These are the defaults
-  --
-  --         -- Set to true if you never want completions to be shown automatically.
-  --         manual = false,
-  --         -- A mapping of filetype to true or false, to enable virtual text.
-  --         filetypes = {},
-  --         -- Whether to enable virtual text of not for filetypes not specifically listed above.
-  --         default_filetype_enabled = true,
-  --         -- How long to wait (in ms) before requesting completions after typing stops.
-  --         idle_delay = 75,
-  --         -- Priority of the virtual text. This usually ensures that the completions appear on top of
-  --         -- other plugins that also add virtual text, such as LSP inlay hints, but can be modified if
-  --         -- desired.
-  --         virtual_text_priority = 65535,
-  --         -- Set to false to disable all key bindings for managing completions.
-  --         map_keys = true,
-  --         -- The key to press when hitting the accept keybinding but no completion is showing.
-  --         -- Defaults to \t normally or <c-n> when a popup is showing.
-  --         accept_fallback = nil,
-  --         -- Key bindings for managing completions in virtual text mode.
-  --         key_bindings = {
-  --           -- Accept the current completion.
-  --           accept = "<Tab>",
-  --           -- Accept the next word.
-  --           accept_word = false,
-  --           -- Accept the next line.
-  --           accept_line = false,
-  --           -- Clear the virtual text.
-  --           clear = false,
-  --           -- Cycle to the next completion.
-  --           next = "<M-]>",
-  --           -- Cycle to the previous completion.
-  --           prev = "<M-[>",
-  --         },
-  --       },
-  --     }
-  --   end,
-  -- },
+  {
+    "Exafunction/codeium.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      -- "hrsh7th/nvim-cmp",
+    },
+    config = function()
+      require("codeium").setup {
+        -- Optionally disable cmp source if using virtual text only
+        enable_cmp_source = false,
+        virtual_text = {
+          enabled = true,
+
+          -- These are the defaults
+
+          -- Set to true if you never want completions to be shown automatically.
+          manual = false,
+          -- A mapping of filetype to true or false, to enable virtual text.
+          filetypes = {},
+          -- Whether to enable virtual text of not for filetypes not specifically listed above.
+          default_filetype_enabled = true,
+          -- How long to wait (in ms) before requesting completions after typing stops.
+          idle_delay = 75,
+          -- Priority of the virtual text. This usually ensures that the completions appear on top of
+          -- other plugins that also add virtual text, such as LSP inlay hints, but can be modified if
+          -- desired.
+          virtual_text_priority = 65535,
+          -- Set to false to disable all key bindings for managing completions.
+          map_keys = true,
+          -- The key to press when hitting the accept keybinding but no completion is showing.
+          -- Defaults to \t normally or <c-n> when a popup is showing.
+          accept_fallback = nil,
+          -- Key bindings for managing completions in virtual text mode.
+          key_bindings = {
+            -- Accept the current completion.
+            accept = "<Tab>",
+            -- Accept the next word.
+            accept_word = false,
+            -- Accept the next line.
+            accept_line = false,
+            -- Clear the virtual text.
+            clear = false,
+            -- Cycle to the next completion.
+            next = "<M-]>",
+            -- Cycle to the previous completion.
+            prev = "<M-[>",
+          },
+        },
+      }
+    end,
+  },
 
   {
     "christoomey/vim-tmux-navigator",
