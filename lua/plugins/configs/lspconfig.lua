@@ -140,6 +140,19 @@ lspconfig.buf_ls.setup {
   capabilities = capabilities,
 }
 
+lspconfig.lexical.setup {
+  capabilities = capabilities,
+  cmd = { "lexical", "--stdio" },
+}
+
+lspconfig.tinymist.setup {
+  capabilities = capabilities,
+}
+
+lspconfig.clangd.setup {
+  capabilities = capabilities,
+}
+
 -- setup multiple servers with same default options
 local servers = { "html", "cssls" }
 

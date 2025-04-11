@@ -7,25 +7,40 @@ return {
   },
 
   {
-    "catppuccin/nvim",
+    "rose-pine/neovim",
+    name = "rose-pine",
     config = function()
-      require("catppuccin").setup {
-        flavour = "mocha",
-        no_italic = true,
-        no_bold = false,
-        transparent_background = false,
-        -- color_overrides = {
-        --   mocha = {
-        --     base = "#000000",
-        --     mantle = "#000000",
-        --     crust = "#000000",
-        --   },
-        -- },
+      require("rose-pine").setup {
+        disable_background = true,
+        styles = {
+          bold = false,
+          italic = false,
+        },
       }
-
-      vim.cmd.colorscheme "catppuccin"
+      vim.cmd "colorscheme rose-pine"
     end,
   },
+
+  -- {
+  --   "catppuccin/nvim",
+  --   config = function()
+  --     require("catppuccin").setup {
+  --       flavour = "mocha",
+  --       no_italic = true,
+  --       no_bold = false,
+  --       transparent_background = false,
+  --       -- color_overrides = {
+  --       --   mocha = {
+  --       --     base = "#000000",
+  --       --     mantle = "#000000",
+  --       --     crust = "#000000",
+  --       --   },
+  --       -- },
+  --     }
+  --
+  --     vim.cmd.colorscheme "catppuccin"
+  --   end,
+  -- },
 
   {
     "nvim-telescope/telescope-file-browser.nvim",
@@ -325,57 +340,57 @@ return {
     opts = {},
   },
 
-  {
-    "Exafunction/codeium.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      -- "hrsh7th/nvim-cmp",
-    },
-    config = function()
-      require("codeium").setup {
-        -- Optionally disable cmp source if using virtual text only
-        enable_cmp_source = false,
-        virtual_text = {
-          enabled = true,
-
-          -- These are the defaults
-
-          -- Set to true if you never want completions to be shown automatically.
-          manual = false,
-          -- A mapping of filetype to true or false, to enable virtual text.
-          filetypes = {},
-          -- Whether to enable virtual text of not for filetypes not specifically listed above.
-          default_filetype_enabled = true,
-          -- How long to wait (in ms) before requesting completions after typing stops.
-          idle_delay = 75,
-          -- Priority of the virtual text. This usually ensures that the completions appear on top of
-          -- other plugins that also add virtual text, such as LSP inlay hints, but can be modified if
-          -- desired.
-          virtual_text_priority = 65535,
-          -- Set to false to disable all key bindings for managing completions.
-          map_keys = true,
-          -- The key to press when hitting the accept keybinding but no completion is showing.
-          -- Defaults to \t normally or <c-n> when a popup is showing.
-          accept_fallback = nil,
-          -- Key bindings for managing completions in virtual text mode.
-          key_bindings = {
-            -- Accept the current completion.
-            accept = "<Tab>",
-            -- Accept the next word.
-            accept_word = false,
-            -- Accept the next line.
-            accept_line = false,
-            -- Clear the virtual text.
-            clear = false,
-            -- Cycle to the next completion.
-            next = "<M-]>",
-            -- Cycle to the previous completion.
-            prev = "<M-[>",
-          },
-        },
-      }
-    end,
-  },
+  -- {
+  --   "Exafunction/codeium.nvim",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     -- "hrsh7th/nvim-cmp",
+  --   },
+  --   config = function()
+  --     require("codeium").setup {
+  --       -- Optionally disable cmp source if using virtual text only
+  --       enable_cmp_source = false,
+  --       virtual_text = {
+  --         enabled = true,
+  --
+  --         -- These are the defaults
+  --
+  --         -- Set to true if you never want completions to be shown automatically.
+  --         manual = false,
+  --         -- A mapping of filetype to true or false, to enable virtual text.
+  --         filetypes = {},
+  --         -- Whether to enable virtual text of not for filetypes not specifically listed above.
+  --         default_filetype_enabled = true,
+  --         -- How long to wait (in ms) before requesting completions after typing stops.
+  --         idle_delay = 75,
+  --         -- Priority of the virtual text. This usually ensures that the completions appear on top of
+  --         -- other plugins that also add virtual text, such as LSP inlay hints, but can be modified if
+  --         -- desired.
+  --         virtual_text_priority = 65535,
+  --         -- Set to false to disable all key bindings for managing completions.
+  --         map_keys = true,
+  --         -- The key to press when hitting the accept keybinding but no completion is showing.
+  --         -- Defaults to \t normally or <c-n> when a popup is showing.
+  --         accept_fallback = nil,
+  --         -- Key bindings for managing completions in virtual text mode.
+  --         key_bindings = {
+  --           -- Accept the current completion.
+  --           accept = "<Tab>",
+  --           -- Accept the next word.
+  --           accept_word = false,
+  --           -- Accept the next line.
+  --           accept_line = false,
+  --           -- Clear the virtual text.
+  --           clear = false,
+  --           -- Cycle to the next completion.
+  --           next = "<M-]>",
+  --           -- Cycle to the previous completion.
+  --           prev = "<M-[>",
+  --         },
+  --       },
+  --     }
+  --   end,
+  -- },
 
   {
     "christoomey/vim-tmux-navigator",
