@@ -33,15 +33,15 @@ return {
   pickers = {
     find_files = {
       find_command = { "rg", "--files", "--hidden", "--no-ignore", "--glob", "!.git/*" },
-      -- theme = "ivy",
+      theme = "ivy",
       previewer = false,
     },
     buffers = {
-      -- theme = "ivy",
+      theme = "ivy",
       previewer = false,
     },
     oldfiles = {
-      -- theme = "ivy",
+      theme = "ivy",
       previewer = false,
     },
     -- live_grep = {

@@ -6,41 +6,43 @@ return {
     version = false,
   },
 
-  {
-    "rose-pine/neovim",
-    name = "rose-pine",
-    config = function()
-      require("rose-pine").setup {
-        disable_background = true,
-        styles = {
-          bold = false,
-          italic = false,
-        },
-      }
-      vim.cmd "colorscheme rose-pine"
-    end,
-  },
-
   -- {
-  --   "catppuccin/nvim",
+  --   "rose-pine/neovim",
+  --   name = "rose-pine",
   --   config = function()
-  --     require("catppuccin").setup {
-  --       flavour = "mocha",
-  --       no_italic = true,
-  --       no_bold = false,
-  --       transparent_background = false,
-  --       -- color_overrides = {
-  --       --   mocha = {
-  --       --     base = "#000000",
-  --       --     mantle = "#000000",
-  --       --     crust = "#000000",
-  --       --   },
-  --       -- },
+  --     require("rose-pine").setup {
+  --       disable_background = true,
+  --       styles = {
+  --         bold = false,
+  --         italic = false,
+  --       },
   --     }
-  --
-  --     vim.cmd.colorscheme "catppuccin"
+  --     vim.cmd "colorscheme rose-pine"
   --   end,
   -- },
+
+  {
+    "catppuccin/nvim",
+    config = function()
+      require("catppuccin").setup {
+        flavour = "mocha",
+        no_italic = true,
+        no_bold = false,
+        transparent_background = true,
+        -- color_overrides = {
+        --   mocha = {
+        --     base = "#000000",
+        --     mantle = "#000000",
+        --     crust = "#000000",
+        --   },
+        -- },
+      }
+
+      vim.cmd.colorscheme "catppuccin"
+
+      vim.o.cursorline = false
+    end,
+  },
 
   {
     "nvim-telescope/telescope-file-browser.nvim",
@@ -149,51 +151,42 @@ return {
     end,
   },
 
-  {
-    "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      require("lualine").setup {
-        options = {
-          icons_enabled = true,
-          component_separators = "|",
-          section_separators = "",
-        },
-        sections = {
-          lualine_a = {
-            {
-              "mode",
-              fmt = function(res)
-                return res:sub(1, 1)
-              end,
-            },
-          },
-          lualine_b = { "diagnostics" },
-          lualine_c = { "filename" },
-          lualine_x = {},
-          lualine_y = { "progress" },
-          lualine_z = { "location" },
-        },
-      }
-    end,
-  },
+  -- {
+  --   "nvim-lualine/lualine.nvim",
+  --   dependencies = { "nvim-tree/nvim-web-devicons" },
+  --   config = function()
+  --     require("lualine").setup {
+  --       options = {
+  --         icons_enabled = true,
+  --         component_separators = "|",
+  --         section_separators = "",
+  --       },
+  --       sections = {
+  --         lualine_a = {
+  --           {
+  --             "mode",
+  --             fmt = function(res)
+  --               return res:sub(1, 1)
+  --             end,
+  --           },
+  --         },
+  --         lualine_b = { "diagnostics" },
+  --         lualine_c = { "filename" },
+  --         lualine_x = {},
+  --         lualine_y = { "progress" },
+  --         lualine_z = { "location" },
+  --       },
+  --     }
+  --   end,
+  -- },
 
   {
-    "hrsh7th/nvim-cmp",
+    "saghen/blink.cmp",
+    version = "1.*",
     event = "InsertEnter",
     dependencies = {
-      -- cmp sources
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-nvim-lsp",
-      "saadparwaiz1/cmp_luasnip",
-      "hrsh7th/cmp-nvim-lua",
-
-      -- snippets
-      --list of default snippets
       "rafamadriz/friendly-snippets",
 
-      -- snippets engine
       {
         "L3MON4D3/LuaSnip",
         config = function()
@@ -201,21 +194,11 @@ return {
         end,
       },
 
-      -- autopairs , autocompletes ()[] etc
-      {
-        "windwp/nvim-autopairs",
-        config = function()
-          require("nvim-autopairs").setup()
-
-          --  cmp integration
-          local cmp_autopairs = require "nvim-autopairs.completion.cmp"
-          local cmp = require "cmp"
-          cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-        end,
-      },
+      { "windwp/nvim-autopairs", opts = {} },
     },
+
     opts = function()
-      return require "plugins.configs.cmp"
+      return require "plugins.configs.blink"
     end,
   },
 

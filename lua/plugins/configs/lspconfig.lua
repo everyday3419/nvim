@@ -13,20 +13,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
       "<cmd>vsplit<CR><cmd>lua vim.lsp.buf.definition()<CR>",
       { desc = "Go to declaration in vertical split", buffer = ev.buf }
     )
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Show hover information in vertical split", buffer = ev.buf })
-    vim.keymap.set(
-      "n",
-      "gvi",
-      "<cmd>vsplit<CR><cmd>lua vim.lsp.buf.implementation()<CR>",
-      { desc = "Go to implementation", buffer = ev.buf }
-    )
-    vim.keymap.set(
-      "n",
-      "gvd",
-      "<cmd>vsplit<CR><cmd>lua vim.lsp.buf.definition()<CR>",
-      { desc = "Go to declaration", buffer = ev.buf }
-    )
-    vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { desc = "Show signature help", buffer = ev.buf })
     vim.keymap.set(
       "n",
       "<space>wa",
@@ -44,8 +30,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end, { desc = "List workspace folders", buffer = ev.buf })
     vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, { desc = "Go to type definition", buffer = ev.buf })
     vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename, { desc = "Rename symbol", buffer = ev.buf })
-    vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, { desc = "Show code actions", buffer = ev.buf })
-    vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Show references", buffer = ev.buf })
   end,
 })
 
@@ -150,6 +134,10 @@ lspconfig.tinymist.setup {
 }
 
 lspconfig.clangd.setup {
+  capabilities = capabilities,
+}
+
+lspconfig.zls.setup {
   capabilities = capabilities,
 }
 

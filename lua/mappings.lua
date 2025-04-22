@@ -5,7 +5,7 @@ map("n", "<C-s>", "<cmd>w<CR>", { desc = "Save current buffer" })
 map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "Copy entire file to clipboard" })
 
 map("n", "<m-j>", "<C-w>j", { desc = "Move to window below", noremap = true, silent = true })
-map("n", "<m-o", "<cmd>nohlsearch<CR>")
+map("n", "<Esc><Esc>", "<cmd>nohlsearch<CR>")
 
 -- General window navigation
 map("n", "<m-k>", "<C-w>k", { desc = "Move to window above", noremap = true, silent = true })
@@ -26,6 +26,7 @@ map(
   "<cmd>Telescope current_buffer_fuzzy_find previewer=true<CR>",
   { desc = "Search in current buffer with preview" }
 )
+map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", { desc = "Show code actions" })
 
 -- Bufferline, cycle buffers
 map("n", "<Tab>", "<cmd>bnext<CR>", { desc = "Next buffer" })
