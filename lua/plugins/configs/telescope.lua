@@ -20,12 +20,13 @@ return {
       "^%.git/",
       "*-lock.json",
       "target",
+      ".anchor",
     },
     mappings = {
       i = {
         ["<C-j>"] = "move_selection_next",
         ["<C-k>"] = "move_selection_previous",
-        -- ["<esc>"] = "close",
+        ["<esc>"] = "close",
       },
     },
   },
@@ -33,15 +34,15 @@ return {
   pickers = {
     find_files = {
       find_command = { "rg", "--files", "--hidden", "--no-ignore", "--glob", "!.git/*" },
-      theme = "ivy",
+      -- theme = "ivy",
       previewer = false,
     },
     buffers = {
-      theme = "ivy",
+      -- theme = "ivy",
       previewer = false,
     },
     oldfiles = {
-      theme = "ivy",
+      -- theme = "ivy",
       previewer = false,
     },
     -- live_grep = {

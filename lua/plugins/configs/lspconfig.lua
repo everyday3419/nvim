@@ -30,6 +30,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end, { desc = "List workspace folders", buffer = ev.buf })
     vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, { desc = "Go to type definition", buffer = ev.buf })
     vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename, { desc = "Rename symbol", buffer = ev.buf })
+    vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { desc = "Show signature help", buffer = ev.buf })
   end,
 })
 
@@ -138,6 +139,10 @@ lspconfig.clangd.setup {
 }
 
 lspconfig.zls.setup {
+  capabilities = capabilities,
+}
+
+lspconfig.taplo.setup {
   capabilities = capabilities,
 }
 

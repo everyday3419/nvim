@@ -1,10 +1,75 @@
 return {
   { lazy = true, "nvim-lua/plenary.nvim" },
 
+  { "echasnovski/mini.nvim", version = false },
+
   {
     "echasnovski/mini.bufremove",
     version = false,
+    config = function()
+      require("mini.splitjoin").setup()
+    end,
   },
+
+  {
+    "echasnovski/mini.nvim",
+    version = false,
+    config = function()
+      local mini_files = require "mini.files"
+      mini_files.setup {}
+
+      local function map_split(buf_id, lhs, direction)
+        local function rhs()
+          local window = mini_files.get_explorer_state().target_window
+
+          if window == nil or mini_files.get_fs_entry().fs_type == "directory" then
+            return
+          end
+
+          local new_target_window
+          vim.api.nvim_win_call(window, function()
+            vim.cmd(direction .. " split")
+            new_target_window = vim.api.nvim_get_current_win()
+          end)
+
+          mini_files.set_target_window(new_target_window)
+          mini_files.go_in { close_on_file = true }
+        end
+
+        vim.keymap.set("n", lhs, rhs, { buffer = buf_id, desc = "Split " .. direction })
+      end
+
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "MiniFilesBufferCreate",
+        callback = function(args)
+          local buf_id = args.data.buf_id
+          map_split(buf_id, "<C-w>s", "belowright horizontal")
+          map_split(buf_id, "<C-w>v", "belowright vertical")
+        end,
+      })
+    end,
+  },
+
+  -- {
+  --   "catppuccin/nvim",
+  --   config = function()
+  --     require("catppuccin").setup {
+  --       flavour = "mocha",
+  --       transparent_background = true,
+  --       no_italic = true,
+  --       no_bold = false,
+  --       -- color_overrides = {
+  --       --   mocha = {
+  --       --     base = "#000000",
+  --       --     mantle = "#000000",
+  --       --     crust = "#000000",
+  --       --   },
+  --       -- },
+  --     }
+  --
+  --     vim.cmd.colorscheme "catppuccin"
+  --   end,
+  -- },
 
   -- {
   --   "rose-pine/neovim",
@@ -15,6 +80,7 @@ return {
   --       styles = {
   --         bold = false,
   --         italic = false,
+  --         transparency = true,
   --       },
   --     }
   --     vim.cmd "colorscheme rose-pine"
@@ -22,114 +88,55 @@ return {
   -- },
 
   {
-    "catppuccin/nvim",
+    "cdmill/neomodern.nvim",
+    lazy = false,
+    priority = 1000,
     config = function()
-      require("catppuccin").setup {
-        flavour = "mocha",
-        no_italic = true,
-        no_bold = false,
-        transparent_background = true,
-        -- color_overrides = {
-        --   mocha = {
-        --     base = "#000000",
-        --     mantle = "#000000",
-        --     crust = "#000000",
-        --   },
-        -- },
+      require("neomodern").setup {
+        -- Can be one of: 'iceclimber' | 'gyokuro' | 'hojicha' | 'roseprime'
+        theme = "gyokuro",
+        transparent = true,
+        code_style = {
+          comments = "none",
+          conditionals = "none",
+          functions = "none",
+          keywords = "none",
+          headings = "none", -- Markdown headings
+          operators = "none",
+          keyword_return = "none",
+          strings = "none",
+          variables = "none",
+        },
+      }
+      require("neomodern").load()
+
+      local lsp_groups = {
+        "@lsp.type.variable",
+        "@lsp.typemod.variable.declaration",
+        "@lsp.typemod.variable.readonly",
+        "@lsp",
+        "@lsp.mod.readonly",
       }
 
-      vim.cmd.colorscheme "catppuccin"
-
-      vim.o.cursorline = false
+      for _, group in ipairs(lsp_groups) do
+        vim.api.nvim_set_hl(0, group, { italic = false })
+      end
     end,
   },
 
   {
-    "nvim-telescope/telescope-file-browser.nvim",
-    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
-    config = function()
-      local fb_actions = require("telescope").extensions.file_browser.actions
-      require("telescope").setup {
-        extensions = {
-          file_browser = {
-            theme = "ivy",
-            hijack_netrw = true,
-            grouped = true,
-            hidden = { file_browser = true, folder_browser = true },
-            dir_icon = "",
-            previewer = false,
-            initial_mode = "normal",
-            mappings = {
-              ["i"] = {
-                ["<C-o>"] = require("telescope.actions").select_default,
-              },
-              ["n"] = {
-                ["o"] = require("telescope.actions").select_default,
-                ["<bs>"] = fb_actions.backspace,
-                ["<m-c>"] = fb_actions.create,
-                ["<m-r>"] = fb_actions.rename,
-                ["<m-d>"] = fb_actions.remove,
-                ["<m-y>"] = fb_actions.copy,
-                ["<m-m>"] = fb_actions.move,
-              },
-            },
-          },
-        },
-      }
-      require("telescope").load_extension "file_browser"
-
-      vim.keymap.set("n", "<leader>e", ":Telescope file_browser path=%:p:h select_buffer=true<CR>")
-
-      -- vim.keymap.set("n", "<leader>e", function()
-      --   require("telescope").extensions.file_browser.file_browser()
-      -- end)
-    end,
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {},
+  -- stylua: ignore
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
   },
-
-  -- {
-  --   "nvim-tree/nvim-tree.lua",
-  --   event = "VeryLazy",
-  --   config = function()
-  --     local HEIGHT_RATIO = 0.8 -- You can change this
-  --     local WIDTH_RATIO = 0.5 -- You can change this too
-  --     require("nvim-tree").setup {
-  --       view = {
-  --         relativenumber = true,
-  --         adaptive_size = true,
-  --         float = {
-  --           enable = true,
-  --           open_win_config = function()
-  --             local screen_w = vim.opt.columns:get()
-  --             local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
-  --             local window_w = screen_w * WIDTH_RATIO
-  --             local window_h = screen_h * HEIGHT_RATIO
-  --             local window_w_int = math.floor(window_w)
-  --             local window_h_int = math.floor(window_h)
-  --             local center_x = (screen_w - window_w) / 2
-  --             local center_y = ((vim.opt.lines:get() - window_h) / 2 - vim.opt.cmdheight:get())
-  --             return {
-  --               border = "rounded",
-  --               relative = "editor",
-  --               row = center_y,
-  --               col = center_x,
-  --               width = window_w_int,
-  --               height = window_h_int,
-  --             }
-  --           end,
-  --         },
-  --         width = function()
-  --           return math.floor(vim.opt.columns:get() * WIDTH_RATIO)
-  --         end,
-  --       },
-  --       diagnostics = {
-  --         enable = true,
-  --       },
-  --       git = {
-  --         ignore = false,
-  --       },
-  --     }
-  --   end,
-  -- },
 
   {
     "nvim-tree/nvim-web-devicons",
@@ -261,14 +268,6 @@ return {
   },
 
   {
-    "ggandor/leap.nvim",
-    lazy = false,
-    config = function()
-      require("leap").add_default_mappings(true)
-    end,
-  },
-
-  {
     "folke/trouble.nvim",
     opts = {
       focus = true,
@@ -358,7 +357,7 @@ return {
   --         -- Key bindings for managing completions in virtual text mode.
   --         key_bindings = {
   --           -- Accept the current completion.
-  --           accept = "<Tab>",
+  --           accept = "<C-g>",
   --           -- Accept the next word.
   --           accept_word = false,
   --           -- Accept the next line.
