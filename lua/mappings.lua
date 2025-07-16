@@ -20,18 +20,28 @@ local minifiles_toggle = function(...)
 end
 map("n", "<leader>e", minifiles_toggle, { desc = "Toggle file explorer" })
 
--- Telescope
-map("n", "<leader>f", "<cmd>Telescope find_files<CR>", { desc = "Find files" })
-map("n", "<leader>o", "<cmd>Telescope oldfiles<CR>", { desc = "Open recent files" })
-map("n", "<leader>'", "<cmd>Telescope live_grep<CR>", { desc = "Search text in workspace" })
-map("n", "<leader>b", "<cmd>Telescope buffers<CR>", { desc = "Show open buffers" })
-map(
-  "n",
-  "<leader>z",
-  "<cmd>Telescope current_buffer_fuzzy_find previewer=true<CR>",
-  { desc = "Search in current buffer with preview" }
-)
-map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", { desc = "Show code actions" })
+-- fzf.lua
+map("n", "<leader>f", "<cmd>FzfLua files<CR>", { desc = "Find files" })
+map("n", "<leader>o", "<cmd>FzfLua oldfiles<CR>", { desc = "Open recent files" })
+map("n", "<leader>'", "<cmd>FzfLua live_grep<CR>", { desc = "Search text in workspace" })
+map("n", "<leader>b", "<cmd>FzfLua buffers<CR>", { desc = "Show open buffers" })
+map("n", "<leader>z", function()
+  require("fzf-lua").blines {
+    winopts = {
+      treesitter = {
+        enabled = false,
+        fzf_colors = {
+          ["fg"] = { "fg", "CursorLine" },
+          ["bg"] = { "bg", "Normal" },
+        },
+      },
+    },
+    fzf_opts = {
+      ["--layout"] = "reverse",
+    },
+  }
+end, { desc = "Search in current buffer with preview" })
+map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Show code actions" })
 
 -- Bufferline, cycle buffers
 map("n", "<Tab>", "<cmd>bnext<CR>", { desc = "Next buffer" })

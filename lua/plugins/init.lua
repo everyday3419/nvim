@@ -12,6 +12,18 @@ return {
   },
 
   {
+    "ibhagwan/fzf-lua",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {
+      buffers = {
+        winopts = {
+          preview = { hidden = true },
+        },
+      },
+    },
+  },
+
+  {
     "echasnovski/mini.nvim",
     version = false,
     config = function()
@@ -87,6 +99,13 @@ return {
   --   end,
   -- },
 
+  -- {
+  --   "chriskempson/base16-vim",
+  --   config = function()
+  --     vim.cmd "colorscheme base16-default-dark"
+  --   end,
+  -- },
+
   {
     "cdmill/neomodern.nvim",
     lazy = false,
@@ -116,6 +135,7 @@ return {
         "@lsp.typemod.variable.readonly",
         "@lsp",
         "@lsp.mod.readonly",
+        "@lsp.type.macro",
       }
 
       for _, group in ipairs(lsp_groups) do
@@ -143,12 +163,12 @@ return {
     opts = {},
   },
 
-  -- {
-  --   "echasnovski/mini.statusline",
-  --   config = function()
-  --     require("mini.statusline").setup { set_vim_settings = false }
-  --   end,
-  -- },
+  {
+    "echasnovski/mini.statusline",
+    config = function()
+      require("mini.statusline").setup { set_vim_settings = false }
+    end,
+  },
 
   {
     "nvim-treesitter/nvim-treesitter",
@@ -231,12 +251,6 @@ return {
   },
 
   {
-    "nvim-telescope/telescope.nvim",
-    cmd = "Telescope",
-    opts = require "plugins.configs.telescope",
-  },
-
-  {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
     opts = {},
@@ -269,11 +283,11 @@ return {
 
   {
     "folke/trouble.nvim",
-    opts = {
-      focus = true,
-      auto_close = true,
-    },
     cmd = "Trouble",
+    opts = {
+      auto_close = true,
+      focus = true,
+    },
     keys = {
       {
         "<leader>xx",
@@ -408,73 +422,73 @@ return {
       "nvim-lua/plenary.nvim",
       "sindrets/diffview.nvim",
 
-      "nvim-telescope/telescope.nvim",
       "ibhagwan/fzf-lua",
       "echasnovski/mini.pick",
     },
     config = true,
   },
 
-  {
-    "gbprod/yanky.nvim",
-    dependencies = {
-      { "kkharji/sqlite.lua" },
-    },
-    opts = {
-      ring = { storage = "sqlite" },
-    },
-    keys = {
-      {
-        "<leader>p",
-        function()
-          require("telescope").extensions.yank_history.yank_history {}
-        end,
-        desc = "Open Yank History",
-      },
-      {
-        "y",
-        "<Plug>(YankyYank)",
-        mode = { "n", "x" },
-        desc = "Yank text",
-      },
-      {
-        "p",
-        "<Plug>(YankyPutAfter)",
-        mode = { "n", "x" },
-        desc = "Put yanked text after cursor",
-      },
-      {
-        "P",
-        "<Plug>(YankyPutBefore)",
-        mode = { "n", "x" },
-        desc = "Put yanked text before cursor",
-      },
-      {
-        "gp",
-        "<Plug>(YankyGPutAfter)",
-        mode = { "n", "x" },
-        desc = "Put yanked text after selection",
-      },
-      {
-        "gP",
-        "<Plug>(YankyGPutBefore)",
-        mode = { "n", "x" },
-        desc = "Put yanked text before selection",
-      },
-      { "<c-p>", "<Plug>(YankyPreviousEntry)", desc = "Select previous entry through yank history" },
-      { "<c-n>", "<Plug>(YankyNextEntry)", desc = "Select next entry through yank history" },
-      { "]p", "<Plug>(YankyPutIndentAfterLinewise)", desc = "Put indented after cursor (linewise)" },
-      { "[p", "<Plug>(YankyPutIndentBeforeLinewise)", desc = "Put indented before cursor (linewise)" },
-      { "]P", "<Plug>(YankyPutIndentAfterLinewise)", desc = "Put indented after cursor (linewise)" },
-      { "[P", "<Plug>(YankyPutIndentBeforeLinewise)", desc = "Put indented before cursor (linewise)" },
-      { ">p", "<Plug>(YankyPutIndentAfterShiftRight)", desc = "Put and indent right" },
-      { "<p", "<Plug>(YankyPutIndentAfterShiftLeft)", desc = "Put and indent left" },
-      { ">P", "<Plug>(YankyPutIndentBeforeShiftRight)", desc = "Put before and indent right" },
-      { "<P", "<Plug>(YankyPutIndentBeforeShiftLeft)", desc = "Put before and indent left" },
-      { "=p", "<Plug>(YankyPutAfterFilter)", desc = "Put after applying a filter" },
-      { "=P", "<Plug>(YankyPutBeforeFilter)", desc = "Put before applying a filter" },
-    },
-  },
+  -- TODO: migrate to fzf
+  -- {
+  --   "gbprod/yanky.nvim",
+  --   dependencies = {
+  --     { "kkharji/sqlite.lua" },
+  --   },
+  --   opts = {
+  --     ring = { storage = "sqlite" },
+  --   },
+  --   keys = {
+  --     {
+  --       "<leader>p",
+  --       function()
+  --         require("telescope").extensions.yank_history.yank_history {}
+  --       end,
+  --       desc = "Open Yank History",
+  --     },
+  --     {
+  --       "y",
+  --       "<Plug>(YankyYank)",
+  --       mode = { "n", "x" },
+  --       desc = "Yank text",
+  --     },
+  --     {
+  --       "p",
+  --       "<Plug>(YankyPutAfter)",
+  --       mode = { "n", "x" },
+  --       desc = "Put yanked text after cursor",
+  --     },
+  --     {
+  --       "P",
+  --       "<Plug>(YankyPutBefore)",
+  --       mode = { "n", "x" },
+  --       desc = "Put yanked text before cursor",
+  --     },
+  --     {
+  --       "gp",
+  --       "<Plug>(YankyGPutAfter)",
+  --       mode = { "n", "x" },
+  --       desc = "Put yanked text after selection",
+  --     },
+  --     {
+  --       "gP",
+  --       "<Plug>(YankyGPutBefore)",
+  --       mode = { "n", "x" },
+  --       desc = "Put yanked text before selection",
+  --     },
+  --     { "<c-p>", "<Plug>(YankyPreviousEntry)", desc = "Select previous entry through yank history" },
+  --     { "<c-n>", "<Plug>(YankyNextEntry)", desc = "Select next entry through yank history" },
+  --     { "]p", "<Plug>(YankyPutIndentAfterLinewise)", desc = "Put indented after cursor (linewise)" },
+  --     { "[p", "<Plug>(YankyPutIndentBeforeLinewise)", desc = "Put indented before cursor (linewise)" },
+  --     { "]P", "<Plug>(YankyPutIndentAfterLinewise)", desc = "Put indented after cursor (linewise)" },
+  --     { "[P", "<Plug>(YankyPutIndentBeforeLinewise)", desc = "Put indented before cursor (linewise)" },
+  --     { ">p", "<Plug>(YankyPutIndentAfterShiftRight)", desc = "Put and indent right" },
+  --     { "<p", "<Plug>(YankyPutIndentAfterShiftLeft)", desc = "Put and indent left" },
+  --     { ">P", "<Plug>(YankyPutIndentBeforeShiftRight)", desc = "Put before and indent right" },
+  --     { "<P", "<Plug>(YankyPutIndentBeforeShiftLeft)", desc = "Put before and indent left" },
+  --     { "=p", "<Plug>(YankyPutAfterFilter)", desc = "Put after applying a filter" },
+  --     { "=P", "<Plug>(YankyPutBeforeFilter)", desc = "Put before applying a filter" },
+  --   },
+  -- },
 
   {
     "mrcjkb/rustaceanvim",
