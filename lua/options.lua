@@ -55,3 +55,29 @@ local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
 vim.env.PATH = vim.env.PATH .. (is_windows and ";" or ":") .. vim.fn.stdpath "data" .. "/mason/bin"
 
 -- vim.o.laststatus = 0
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+  pattern = "*",
+  callback = function()
+    local groups = {
+      "Normal",
+      "NormalNC",
+      "NormalFloat",
+      "FloatBorder",
+      "SignColumn",
+      "VertSplit",
+      "StatusLine",
+      "StatusLineNC",
+      "WinBar",
+      "WinBarNC",
+      "TabLine",
+      "TabLineFill",
+      "TabLineSel",
+      "MsgArea",
+      "Cmdline",
+    }
+    for _, group in ipairs(groups) do
+      vim.api.nvim_set_hl(0, group, { bg = "none" })
+    end
+  end,
+})

@@ -12,6 +12,9 @@ map("n", "<m-k>", "<C-w>k", { desc = "Move to window above", noremap = true, sil
 map("n", "<m-l>", "<C-w>l", { desc = "Move to window on the right", noremap = true, silent = true })
 map("n", "<m-h>", "<C-w>h", { desc = "Move to window on the left", noremap = true, silent = true })
 
+-- NvimTree
+-- map("n", "<leader>e", "<cmd> NvimTreeToggle <CR>")
+
 -- MiniFiles
 local minifiles_toggle = function(...)
   if not MiniFiles.close() then

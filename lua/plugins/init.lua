@@ -15,6 +15,12 @@ return {
     "ibhagwan/fzf-lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
+      keymap = {
+        fzf = {
+          ["ctrl-q"] = "select-all+accept",
+        },
+      },
+
       buffers = {
         winopts = {
           preview = { hidden = true },
@@ -62,87 +68,50 @@ return {
     end,
   },
 
-  -- {
-  --   "catppuccin/nvim",
-  --   config = function()
-  --     require("catppuccin").setup {
-  --       flavour = "mocha",
-  --       transparent_background = true,
-  --       no_italic = true,
-  --       no_bold = false,
-  --       -- color_overrides = {
-  --       --   mocha = {
-  --       --     base = "#000000",
-  --       --     mantle = "#000000",
-  --       --     crust = "#000000",
-  --       --   },
-  --       -- },
-  --     }
-  --
-  --     vim.cmd.colorscheme "catppuccin"
-  --   end,
-  -- },
-
-  -- {
-  --   "rose-pine/neovim",
-  --   name = "rose-pine",
-  --   config = function()
-  --     require("rose-pine").setup {
-  --       disable_background = true,
-  --       styles = {
-  --         bold = false,
-  --         italic = false,
-  --         transparency = true,
-  --       },
-  --     }
-  --     vim.cmd "colorscheme rose-pine"
-  --   end,
-  -- },
-
-  -- {
-  --   "chriskempson/base16-vim",
-  --   config = function()
-  --     vim.cmd "colorscheme base16-default-dark"
-  --   end,
-  -- },
-
   {
-    "cdmill/neomodern.nvim",
-    lazy = false,
-    priority = 1000,
+    "lunarvim/darkplus.nvim",
     config = function()
-      require("neomodern").setup {
-        -- Can be one of: 'iceclimber' | 'gyokuro' | 'hojicha' | 'roseprime'
-        theme = "gyokuro",
-        transparent = true,
-        code_style = {
-          comments = "none",
-          conditionals = "none",
-          functions = "none",
-          keywords = "none",
-          headings = "none", -- Markdown headings
-          operators = "none",
-          keyword_return = "none",
-          strings = "none",
-          variables = "none",
-        },
-      }
-      require("neomodern").load()
-
-      local lsp_groups = {
-        "@lsp.type.variable",
-        "@lsp.typemod.variable.declaration",
-        "@lsp.typemod.variable.readonly",
-        "@lsp",
-        "@lsp.mod.readonly",
-        "@lsp.type.macro",
-      }
-
-      for _, group in ipairs(lsp_groups) do
-        vim.api.nvim_set_hl(0, group, { italic = false })
-      end
+      vim.cmd "colorscheme darkplus"
     end,
   },
+
+  -- {
+  --   "cdmill/neomodern.nvim",
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     require("neomodern").setup {
+  --       -- Can be one of: 'iceclimber' | 'gyokuro' | 'hojicha' | 'roseprime'
+  --       theme = "gyokuro",
+  --       transparent = true,
+  --       code_style = {
+  --         comments = "none",
+  --         conditionals = "none",
+  --         functions = "none",
+  --         keywords = "none",
+  --         headings = "none", -- Markdown headings
+  --         operators = "none",
+  --         keyword_return = "none",
+  --         strings = "none",
+  --         variables = "none",
+  --       },
+  --     }
+  --     require("neomodern").load()
+  --
+  --     local lsp_groups = {
+  --       "@lsp.type.variable",
+  --       "@lsp.typemod.variable.declaration",
+  --       "@lsp.typemod.variable.readonly",
+  --       "@lsp",
+  --       "@lsp.mod.readonly",
+  --       "@lsp.type.macro",
+  --     }
+  --
+  --     for _, group in ipairs(lsp_groups) do
+  --       vim.api.nvim_set_hl(0, group, { italic = false })
+  --     end
+  --   end,
+  -- },
 
   {
     "folke/flash.nvim",
@@ -163,12 +132,12 @@ return {
     opts = {},
   },
 
-  {
-    "echasnovski/mini.statusline",
-    config = function()
-      require("mini.statusline").setup { set_vim_settings = false }
-    end,
-  },
+  -- {
+  --   "echasnovski/mini.statusline",
+  --   config = function()
+  --     require("mini.statusline").setup { set_vim_settings = false }
+  --   end,
+  -- },
 
   {
     "nvim-treesitter/nvim-treesitter",
@@ -178,33 +147,39 @@ return {
     end,
   },
 
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("lualine").setup {
+        options = {
+          icons_enabled = true,
+          component_separators = "|",
+          section_separators = "",
+        },
+        sections = {
+          lualine_a = {
+            {
+              "mode",
+              fmt = function(res)
+                return res:sub(1, 1)
+              end,
+            },
+          },
+          lualine_b = { "diagnostics" },
+          lualine_c = { "filename" },
+          lualine_x = {},
+          lualine_y = { "progress" },
+          lualine_z = { "location" },
+        },
+      }
+    end,
+  },
+
   -- {
-  --   "nvim-lualine/lualine.nvim",
-  --   dependencies = { "nvim-tree/nvim-web-devicons" },
-  --   config = function()
-  --     require("lualine").setup {
-  --       options = {
-  --         icons_enabled = true,
-  --         component_separators = "|",
-  --         section_separators = "",
-  --       },
-  --       sections = {
-  --         lualine_a = {
-  --           {
-  --             "mode",
-  --             fmt = function(res)
-  --               return res:sub(1, 1)
-  --             end,
-  --           },
-  --         },
-  --         lualine_b = { "diagnostics" },
-  --         lualine_c = { "filename" },
-  --         lualine_x = {},
-  --         lualine_y = { "progress" },
-  --         lualine_z = { "location" },
-  --       },
-  --     }
-  --   end,
+  --   "nvim-tree/nvim-tree.lua",
+  --   cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+  --   opts = {},
   -- },
 
   {
@@ -511,5 +486,18 @@ return {
 
       require("outline").setup {}
     end,
+  },
+
+  {
+    "mbbill/undotree",
+    keys = {
+      {
+        "<leader>u",
+        function()
+          vim.cmd.UndotreeToggle()
+          vim.cmd "wincmd t"
+        end,
+      },
+    },
   },
 }
