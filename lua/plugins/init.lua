@@ -1,14 +1,17 @@
 return {
   { lazy = true, "nvim-lua/plenary.nvim" },
 
-  { "echasnovski/mini.nvim", version = false },
+  {
+    "echasnovski/mini.splitjoin",
+    version = false,
+    config = function()
+      require("mini.splitjoin").setup {}
+    end,
+  },
 
   {
     "echasnovski/mini.bufremove",
     version = false,
-    config = function()
-      require("mini.splitjoin").setup()
-    end,
   },
 
   {
@@ -68,48 +71,65 @@ return {
     end,
   },
 
+  -- {
+  --   "rose-pine/neovim",
+  --   name = "rose-pine",
+  --   config = function()
+  --     require("rose-pine").setup {
+  --       disable_background = true,
+  --       styles = {
+  --         bold = false,
+  --         italic = false,
+  --       },
+  --     }
+  --     vim.cmd "colorscheme rose-pine"
+  --   end,
+  -- },
+
+  -- {
+  --   "catppuccin/nvim",
+  --   config = function()
+  --     require("catppuccin").setup {
+  --       flavour = "mocha",
+  --       no_italic = true,
+  --       no_bold = false,
+  --       transparent_background = true,
+  --       color_overrides = {
+  --         mocha = {
+  --           base = "#000000",
+  --           mantle = "#000000",
+  --           crust = "#000000",
+  --         },
+  --       },
+  --     }
+  --
+  --     vim.cmd.colorscheme "catppuccin"
+  --   end,
+  -- },
+
   {
-    "lunarvim/darkplus.nvim",
+    "cdmill/neomodern.nvim",
+    priority = 1000,
     config = function()
-      vim.cmd "colorscheme darkplus"
+      require("neomodern").setup {
+        theme = "gyokuro",
+        transparent = true,
+      }
+      require("neomodern").load()
+      for _, group in ipairs(vim.fn.getcompletion("", "highlight")) do
+        local hl = vim.api.nvim_get_hl(0, { name = group })
+        if hl.italic then
+          hl.italic = false
+          vim.api.nvim_set_hl(0, group, hl)
+        end
+      end
     end,
   },
 
   -- {
-  --   "cdmill/neomodern.nvim",
-  --   lazy = false,
-  --   priority = 1000,
+  --   "lunarvim/darkplus.nvim",
   --   config = function()
-  --     require("neomodern").setup {
-  --       -- Can be one of: 'iceclimber' | 'gyokuro' | 'hojicha' | 'roseprime'
-  --       theme = "gyokuro",
-  --       transparent = true,
-  --       code_style = {
-  --         comments = "none",
-  --         conditionals = "none",
-  --         functions = "none",
-  --         keywords = "none",
-  --         headings = "none", -- Markdown headings
-  --         operators = "none",
-  --         keyword_return = "none",
-  --         strings = "none",
-  --         variables = "none",
-  --       },
-  --     }
-  --     require("neomodern").load()
-  --
-  --     local lsp_groups = {
-  --       "@lsp.type.variable",
-  --       "@lsp.typemod.variable.declaration",
-  --       "@lsp.typemod.variable.readonly",
-  --       "@lsp",
-  --       "@lsp.mod.readonly",
-  --       "@lsp.type.macro",
-  --     }
-  --
-  --     for _, group in ipairs(lsp_groups) do
-  --       vim.api.nvim_set_hl(0, group, { italic = false })
-  --     end
+  --     vim.cmd "colorscheme darkplus"
   --   end,
   -- },
 
@@ -499,5 +519,26 @@ return {
         end,
       },
     },
+  },
+
+  {
+    "Bekaboo/dropbar.nvim",
+    -- optional, but required for fuzzy finder support
+    dependencies = {
+      "nvim-telescope/telescope-fzf-native.nvim",
+      build = "make",
+    },
+    config = function()
+      local dropbar_api = require "dropbar.api"
+      vim.keymap.set("n", "<Leader>;", dropbar_api.pick, { desc = "Pick symbols in winbar" })
+      vim.keymap.set("n", "[;", dropbar_api.goto_context_start, { desc = "Go to start of current context" })
+      vim.keymap.set("n", "];", dropbar_api.select_next_context, { desc = "Select next context" })
+    end,
+  },
+
+  {
+    "akinsho/bufferline.nvim",
+    version = "*",
+    dependencies = "nvim-tree/nvim-web-devicons",
   },
 }
