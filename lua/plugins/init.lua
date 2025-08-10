@@ -152,12 +152,12 @@ return {
     opts = {},
   },
 
-  -- {
-  --   "echasnovski/mini.statusline",
-  --   config = function()
-  --     require("mini.statusline").setup { set_vim_settings = false }
-  --   end,
-  -- },
+  {
+    "echasnovski/mini.statusline",
+    config = function()
+      require("mini.statusline").setup { set_vim_settings = false }
+    end,
+  },
 
   {
     "nvim-treesitter/nvim-treesitter",
@@ -167,34 +167,34 @@ return {
     end,
   },
 
-  {
-    "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      require("lualine").setup {
-        options = {
-          icons_enabled = true,
-          component_separators = "|",
-          section_separators = "",
-        },
-        sections = {
-          lualine_a = {
-            {
-              "mode",
-              fmt = function(res)
-                return res:sub(1, 1)
-              end,
-            },
-          },
-          lualine_b = { "diagnostics" },
-          lualine_c = { "filename" },
-          lualine_x = {},
-          lualine_y = { "progress" },
-          lualine_z = { "location" },
-        },
-      }
-    end,
-  },
+  -- {
+  --   "nvim-lualine/lualine.nvim",
+  --   dependencies = { "nvim-tree/nvim-web-devicons" },
+  --   config = function()
+  --     require("lualine").setup {
+  --       options = {
+  --         icons_enabled = true,
+  --         component_separators = "|",
+  --         section_separators = "",
+  --       },
+  --       sections = {
+  --         lualine_a = {
+  --           {
+  --             "mode",
+  --             fmt = function(res)
+  --               return res:sub(1, 1)
+  --             end,
+  --           },
+  --         },
+  --         lualine_b = { "diagnostics" },
+  --         lualine_c = { "filename" },
+  --         lualine_x = {},
+  --         lualine_y = { "progress" },
+  --         lualine_z = { "location" },
+  --       },
+  --     }
+  --   end,
+  -- },
 
   -- {
   --   "nvim-tree/nvim-tree.lua",
@@ -521,24 +521,28 @@ return {
     },
   },
 
-  {
-    "Bekaboo/dropbar.nvim",
-    -- optional, but required for fuzzy finder support
-    dependencies = {
-      "nvim-telescope/telescope-fzf-native.nvim",
-      build = "make",
-    },
-    config = function()
-      local dropbar_api = require "dropbar.api"
-      vim.keymap.set("n", "<Leader>;", dropbar_api.pick, { desc = "Pick symbols in winbar" })
-      vim.keymap.set("n", "[;", dropbar_api.goto_context_start, { desc = "Go to start of current context" })
-      vim.keymap.set("n", "];", dropbar_api.select_next_context, { desc = "Select next context" })
-    end,
-  },
+  -- {
+  --   "Bekaboo/dropbar.nvim",
+  --   -- optional, but required for fuzzy finder support
+  --   dependencies = {
+  --     "nvim-telescope/telescope-fzf-native.nvim",
+  --     build = "make",
+  --   },
+  --   config = function()
+  --     local dropbar_api = require "dropbar.api"
+  --     vim.keymap.set("n", "<Leader>;", dropbar_api.pick, { desc = "Pick symbols in winbar" })
+  --     vim.keymap.set("n", "[;", dropbar_api.goto_context_start, { desc = "Go to start of current context" })
+  --     vim.keymap.set("n", "];", dropbar_api.select_next_context, { desc = "Select next context" })
+  --   end,
+  -- },
 
-  {
-    "akinsho/bufferline.nvim",
-    version = "*",
-    dependencies = "nvim-tree/nvim-web-devicons",
-  },
+  -- {
+  --   "akinsho/bufferline.nvim",
+  --   version = "*",
+  --   dependencies = "nvim-tree/nvim-web-devicons",
+  --   config = function()
+  --     vim.opt.termguicolors = true
+  --     require("bufferline").setup {}
+  --   end,
+  -- },
 }
