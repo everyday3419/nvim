@@ -71,6 +71,10 @@ return {
     end,
   },
 
+  {
+    "sindrets/diffview.nvim",
+  },
+
   -- {
   --   "rose-pine/neovim",
   --   name = "rose-pine",
@@ -94,42 +98,77 @@ return {
   --       no_italic = true,
   --       no_bold = false,
   --       transparent_background = true,
-  --       color_overrides = {
-  --         mocha = {
-  --           base = "#000000",
-  --           mantle = "#000000",
-  --           crust = "#000000",
-  --         },
-  --       },
+  --       -- color_overrides = {
+  --       --   mocha = {
+  --       --     base = "#000000",
+  --       --     mantle = "#000000",
+  --       --     crust = "#000000",
+  --       --   },
+  --       -- },
   --     }
   --
   --     vim.cmd.colorscheme "catppuccin"
   --   end,
   -- },
 
+  -- {
+  --   "chriskempson/base16-vim",
+  --   config = function()
+  --     vim.cmd "colorscheme base16-default-dark"
+  --   end,
+  -- },
+
   {
-    "cdmill/neomodern.nvim",
-    priority = 1000,
+    "lunarvim/darkplus.nvim",
     config = function()
-      require("neomodern").setup {
-        theme = "gyokuro",
-        transparent = true,
-      }
-      require("neomodern").load()
-      for _, group in ipairs(vim.fn.getcompletion("", "highlight")) do
-        local hl = vim.api.nvim_get_hl(0, { name = group })
-        if hl.italic then
-          hl.italic = false
-          vim.api.nvim_set_hl(0, group, hl)
-        end
-      end
+      vim.cmd "colorscheme darkplus"
     end,
   },
 
   -- {
-  --   "lunarvim/darkplus.nvim",
+  --   "anAcc22/sakura.nvim",
+  --   dependencies = "rktjmp/lush.nvim",
   --   config = function()
-  --     vim.cmd "colorscheme darkplus"
+  --     vim.opt.background = "dark" -- or "light"
+  --     vim.cmd "colorscheme sakura" -- sets the colorscheme
+  --
+  --     for _, group in ipairs(vim.fn.getcompletion("", "highlight")) do
+  --       local hl = vim.api.nvim_get_hl(0, { name = group })
+  --       local changed = false
+  --
+  --       if hl.italic then
+  --         hl.italic = false
+  --         changed = true
+  --       end
+  --
+  --       if hl.bold then
+  --         hl.bold = false
+  --         changed = true
+  --       end
+  --
+  --       if changed then
+  --         vim.api.nvim_set_hl(0, group, hl)
+  --       end
+  --     end
+  --   end,
+  -- },
+
+  -- {
+  --   "cdmill/neomodern.nvim",
+  --   priority = 1000,
+  --   config = function()
+  --     require("neomodern").setup {
+  --       theme = "gyokuro",
+  --       transparent = true,
+  --     }
+  --     require("neomodern").load()
+  --     for _, group in ipairs(vim.fn.getcompletion("", "highlight")) do
+  --       local hl = vim.api.nvim_get_hl(0, { name = group })
+  --       if hl.italic then
+  --         hl.italic = false
+  --         vim.api.nvim_set_hl(0, group, hl)
+  --       end
+  --     end
   --   end,
   -- },
 
@@ -152,12 +191,12 @@ return {
     opts = {},
   },
 
-  {
-    "echasnovski/mini.statusline",
-    config = function()
-      require("mini.statusline").setup { set_vim_settings = false }
-    end,
-  },
+  -- {
+  --   "echasnovski/mini.statusline",
+  --   config = function()
+  --     require("mini.statusline").setup { set_vim_settings = false }
+  --   end,
+  -- },
 
   {
     "nvim-treesitter/nvim-treesitter",
@@ -167,34 +206,34 @@ return {
     end,
   },
 
-  -- {
-  --   "nvim-lualine/lualine.nvim",
-  --   dependencies = { "nvim-tree/nvim-web-devicons" },
-  --   config = function()
-  --     require("lualine").setup {
-  --       options = {
-  --         icons_enabled = true,
-  --         component_separators = "|",
-  --         section_separators = "",
-  --       },
-  --       sections = {
-  --         lualine_a = {
-  --           {
-  --             "mode",
-  --             fmt = function(res)
-  --               return res:sub(1, 1)
-  --             end,
-  --           },
-  --         },
-  --         lualine_b = { "diagnostics" },
-  --         lualine_c = { "filename" },
-  --         lualine_x = {},
-  --         lualine_y = { "progress" },
-  --         lualine_z = { "location" },
-  --       },
-  --     }
-  --   end,
-  -- },
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("lualine").setup {
+        options = {
+          icons_enabled = true,
+          component_separators = "|",
+          section_separators = "",
+        },
+        sections = {
+          lualine_a = {
+            {
+              "mode",
+              fmt = function(res)
+                return res:sub(1, 1)
+              end,
+            },
+          },
+          lualine_b = { "branch", "diagnostics" },
+          lualine_c = { "filename" },
+          lualine_x = {},
+          lualine_y = { "progress" },
+          lualine_z = { "location" },
+        },
+      }
+    end,
+  },
 
   -- {
   --   "nvim-tree/nvim-tree.lua",
