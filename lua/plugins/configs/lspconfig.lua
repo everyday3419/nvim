@@ -1,8 +1,6 @@
--- Use LspAttach autocommand to only map the following keys
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
   callback = function(ev)
-    -- Enable completion triggered by <c-x><c-o>
     vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration", buffer = ev.buf })
@@ -34,6 +32,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
+vim.diagnostic.config { virtual_text = true, virtual_lines = false }
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 capabilities.textDocument.completion.completionItem = {
@@ -54,7 +54,6 @@ capabilities.textDocument.completion.completionItem = {
   },
 }
 
--- Setup language servers.
 local lspconfig = require "lspconfig"
 
 lspconfig.lua_ls.setup {
@@ -65,19 +64,6 @@ lspconfig.lua_ls.setup {
     },
   },
 }
-
--- lspconfig.rust_analyzer.setup {
---   capabilities = capabilities,
---   filetypes = { "rust" },
---   root_dir = lspconfig.util.root_pattern "Cargo.toml",
---   settings = {
---     ["rust-analyzer"] = {
---       check = {
---         allFeatures = true,
---       },
---     },
---   },
--- }
 
 lspconfig.ts_ls.setup {
   capabilities = capabilities,
@@ -117,17 +103,8 @@ lspconfig.pyright.setup {
   capabilities = capabilities,
 }
 
-lspconfig.solidity_ls.setup {
-  capabilities = capabilities,
-}
-
 lspconfig.buf_ls.setup {
   capabilities = capabilities,
-}
-
-lspconfig.lexical.setup {
-  capabilities = capabilities,
-  cmd = { "lexical", "--stdio" },
 }
 
 lspconfig.tinymist.setup {
@@ -146,7 +123,6 @@ lspconfig.taplo.setup {
   capabilities = capabilities,
 }
 
--- setup multiple servers with same default options
 local servers = { "html", "cssls" }
 
 for _, lsp in ipairs(servers) do

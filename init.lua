@@ -1,9 +1,7 @@
 require "options"
 require "mappings"
-require "commands"
 
--- bootstrap plugins & lazy.nvim
-local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim" -- path where its going to be installed
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system {
@@ -18,6 +16,10 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-local plugins = require "plugins"
-
-require("lazy").setup(plugins, require "lazy_config")
+require("lazy").setup({
+  spec = 'plugins',
+  change_detection = { notify = false },
+  rocks = {
+    enabled = false,
+  },
+})
